@@ -26,7 +26,7 @@ CGPoint pointWithOrigin(CGPoint pt, CGPoint origin);
 #define POINTSTRING(_aPoint_)	NSStringFromCGPoint(_aPoint_)
 #define SIZESTRING(_aSize_)		NSStringFromCGSize(_aSize_)
 
-// Centering
+// 置中
 CGPoint GEORectGetCenter(CGRect rect);
 CGRect	GEORectAroundCenter(CGPoint center, float dx, float dy);
 CGRect	GEORectCenteredInRect(CGRect rect, CGRect mainRect);

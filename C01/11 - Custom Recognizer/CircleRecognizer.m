@@ -10,7 +10,7 @@
 #import "Geometry.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-// Calculate and return least bounding rectangle
+// 計算並回傳最小的包圍矩形
 #define POINT(_INDEX_) [(NSValue *)[points objectAtIndex:_INDEX_] CGPointValue]
 CGRect boundingRect(NSArray *points)
 {
@@ -37,18 +37,18 @@ CGRect testForCircle(NSArray *points, NSDate *firstTouchDate)
         return CGRectZero;
     }
     
-    // Test 1: duration tolerance
+    // 檢測1：在多短時間內必須完成手勢
     float duration = [[NSDate date] timeIntervalSinceDate:firstTouchDate];
     if (SHOWDEBUG) NSLog(@"Transit duration: %0.2f", duration);
     
     float maxDuration = 2.0f;
-    if (duration > maxDuration) // allows longer time for use in simulator
+    if (duration > maxDuration) // 在模擬器執行時，允許較大的延遲
     {
         if (SHOWDEBUG) NSLog(@"Excessive touch duration: %0.2f seconds vs %0.1f seconds", duration, maxDuration);
         return CGRectZero;
     }
     
-    // Test 2: The number of direction changes should be limited to near 4
+    // 檢測2：方向變化的次數，應限制在4次左右
     int inflections = 0;
     for (int i = 2; i < (points.count - 1); i++)
     {
@@ -67,7 +67,7 @@ CGRect testForCircle(NSArray *points, NSDate *firstTouchDate)
         return CGRectZero;
     }
     
-    // Test 3: The start and end points must be between some number of points of each other
+    // 檢測3：起點與終點必須在一定程度內靠在一起
     float tolerance = [[[UIApplication sharedApplication] keyWindow] bounds].size.width / 3.0f;    
     if (distance(POINT(0), POINT(points.count - 1)) > tolerance)
     {
@@ -75,7 +75,7 @@ CGRect testForCircle(NSArray *points, NSDate *firstTouchDate)
         return CGRectZero;
     }
     
-    // Test 4: Count the distance traveled in degrees. 
+    // 檢測4：計算手勢劃過的角度  
     CGRect circle = boundingRect(points);
     CGPoint center = GEORectGetCenter(circle);
     float distance = ABS(acos(dotproduct(pointWithOrigin(POINT(0), center), pointWithOrigin(POINT(1), center))));
@@ -84,16 +84,16 @@ CGRect testForCircle(NSArray *points, NSDate *firstTouchDate)
     
     float transitTolerance = distance - 2 * M_PI;
     
-    if (transitTolerance < 0.0f) // fell short of 2 PI
+    if (transitTolerance < 0.0f) // 小於2*PI
     {
-        if (transitTolerance < - (M_PI / 4.0f)) // 45 degrees or more
+        if (transitTolerance < - (M_PI / 4.0f)) // 小於45度
         {
             if (SHOWDEBUG) NSLog(@"Transit was too short, under 315 degrees");
             return CGRectZero;
         }
     }
     
-    if (transitTolerance > M_PI) // additional 180 degrees
+    if (transitTolerance > M_PI) // 多了180度以上
     {
         if (SHOWDEBUG) NSLog(@"Transit was too long, over 540 degrees");
         return CGRectZero;
@@ -107,6 +107,10 @@ CGRect testForCircle(NSArray *points, NSDate *firstTouchDate)
 // called automatically by the runtime after the gesture state has been set to UIGestureRecognizerStateEnded
 // any internal state should be reset to prepare for a new attempt to recognize the gesture
 // after this is received all remaining active touches will be ignored (no further updates will be received for touches that had already begun but haven't ended)
+// 當手勢狀態設定為UIGestureRecognizerStateEnded時，此方法
+// 會自動被執行階段程式庫呼叫，任何內部狀態都應該重置，
+// 準備辨識下一次新的手勢，所有剩餘的觸控會被忽略。
+// （不會收到任何已經開始但還沒結束的觸控事件。）
 - (void)reset
 {
 	[super reset];
@@ -119,6 +123,10 @@ CGRect testForCircle(NSArray *points, NSDate *firstTouchDate)
 // mirror of the touch-delivery methods on UIResponder
 // UIGestureRecognizers aren't in the responder chain, but observe touches hit-tested to their view and their view's subviews
 // UIGestureRecognizers receive touches before the view to which the touch was hit-tested
+// 模仿UIResponder裡處理的觸控方法
+// UIGestureRecognizers並不在回應者鏈裡，但會觀察擊中視圖與
+// 子視圖的觸控事件。
+// 被擊中的視圖收到觸控事件前，UIGestureRecognizers就會收到
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[super touchesBegan:touches withEvent:event];

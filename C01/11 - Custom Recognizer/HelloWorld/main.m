@@ -40,8 +40,8 @@
 
 - (void) handleCircleRecognizer:(UIGestureRecognizer *) recognizer
 {
-	// Respond to a recognition event by updating the background
-    // I do this just to give the user some feedback that the recognizer succeeded
+	// 以更新背景顏色的方式，回應手勢辨識事件
+    // 當辨識器成功辨識手勢時，讓使用者得知
 	NSLog(@"Circle recognized");
 	self.view.backgroundColor = [UIColor randomColor];
 }
