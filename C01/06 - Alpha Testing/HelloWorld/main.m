@@ -9,10 +9,11 @@
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
 #define BARBUTTON(TITLE, SELECTOR) 	[[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
 
-// Return the alpha byte offset
+// 回傳位於(x, y)的alpha的偏移值
+// 點陣圖資料的格式為每像素4個bytes（RGBA）
 static NSUInteger alphaOffset(NSUInteger x, NSUInteger y, NSUInteger w){return y * w * 4 + x * 4 + 0;}
 
-// Return a byte array of image
+// 回傳圖像的點陣圖資料
 NSData *getBitmapFromImage (UIImage *image)
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -23,7 +24,7 @@ NSData *getBitmapFromImage (UIImage *image)
     }
 	
 	CGSize size = image.size;
-	Byte *bitmapData = calloc(size.width * size.height * 4, 1); // Courtesy of Dirk. Thanks!
+	Byte *bitmapData = calloc(size.width * size.height * 4, 1); // Dirk的建議，謝謝！
     if (bitmapData == NULL)
     {
         fprintf (stderr, "Error: Memory not allocated!");
@@ -84,10 +85,10 @@ NSData *getBitmapFromImage (UIImage *image)
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // Promote the touched view
+    // 將被觸摸到的視圖帶到最前面
     [self.superview bringSubviewToFront:self];
     
-    // Remember original location
+    // 記住原來的位置
     previousLocation = self.center;
 }
 
@@ -96,7 +97,7 @@ NSData *getBitmapFromImage (UIImage *image)
 	CGPoint translation = [uigr translationInView:self.superview];
 	CGPoint newcenter = CGPointMake(previousLocation.x + translation.x, previousLocation.y + translation.y);
 	
-	// Bound movement into parent bounds
+	// 將移動範圍限制在父視圖的bounds內
 	float halfx = CGRectGetMidX(self.bounds);
 	newcenter.x = MAX(halfx, newcenter.x);
 	newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
@@ -105,7 +106,7 @@ NSData *getBitmapFromImage (UIImage *image)
 	newcenter.y = MAX(halfy, newcenter.y);
 	newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
 	
-	// Set new location
+	// 設定新位置
 	self.center = newcenter;	
 }
 @end
@@ -119,12 +120,12 @@ NSData *getBitmapFromImage (UIImage *image)
 @implementation TestBedViewController
 - (CGPoint) randomFlowerPosition
 {
-    CGFloat halfFlower = 32.0f; // half of the size of the flower
+    CGFloat halfFlower = 32.0f; // 花朵一半的大小
     
-    // The flower must be placed fully within the view. Inset accordingly
+    // 花朵必須完整顯示於視圖內，依此設定CGRectInset
     CGSize insetSize = CGRectInset(bgView.bounds, 2*halfFlower, 2*halfFlower).size;
 
-    // Return a random position within the inset bounds
+    // 回傳範圍內的一個亂數位置
     CGFloat randomX = random() % ((int)insetSize.width) + halfFlower;
     CGFloat randomY = random() % ((int)insetSize.height) + halfFlower;
     return CGPointMake(randomX, randomY);
@@ -132,7 +133,7 @@ NSData *getBitmapFromImage (UIImage *image)
 
 - (void) layoutFlowers
 {
-    // Move every flower into a new random place
+    // 移動所有花朵到新的亂數位置
     [UIView animateWithDuration:0.3f animations: ^(){
         for (UIView *flowerDragger in bgView.subviews)
             flowerDragger.center = [self randomFlowerPosition];}];
@@ -140,7 +141,7 @@ NSData *getBitmapFromImage (UIImage *image)
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    bgView.frame = CGRectInset(self.view.bounds, 0.0f, 0.0f); // full frame
+    bgView.frame = CGRectInset(self.view.bounds, 0.0f, 0.0f); // 整個frame
     [self layoutFlowers];
 }
 
@@ -153,10 +154,10 @@ NSData *getBitmapFromImage (UIImage *image)
     bgView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:bgView];
     
-    NSInteger maxFlowers = 12; // number of flowers to add
+    NSInteger maxFlowers = 12; // 花朵的數目
     NSArray *flowerArray = @[@"blueFlower.png", @"pinkFlower.png", @"orangeFlower.png"];
 
-    // Add the flowers
+    // 加入花朵
 	for (int i = 0; i < maxFlowers; i++)
 	{
 		NSString *whichFlower = [flowerArray objectAtIndex:(random() % flowerArray.count)];
@@ -164,7 +165,7 @@ NSData *getBitmapFromImage (UIImage *image)
 		[bgView addSubview:flowerDragger];
     }
     
-    // Provide a "Randomize" button
+    // 提供亂數擺放花朵的"Randomize"按鈕
     self.navigationItem.rightBarButtonItem = BARBUTTON(@"Randomize", @selector(layoutFlowers));
 }
 
@@ -172,7 +173,7 @@ NSData *getBitmapFromImage (UIImage *image)
 {
     bgView.frame = CGRectInset(self.view.bounds, 64.0f, 64.0f);
 
-    // Check for any off-screen flowers and move them into place
+    // 檢查花朵是否在螢幕外，若是則移動到螢幕內
     
     CGFloat halfFlower = 32.0f;
     CGRect targetRect = CGRectInset(bgView.bounds, halfFlower * 2, halfFlower * 2);
