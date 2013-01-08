@@ -10,10 +10,10 @@
 @implementation DragView
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	// Promote the touched view
+	// 將被觸控的視圖帶到最前面
 	[self.superview bringSubviewToFront:self];
 
-	// initialize translation offsets
+	// 初始化位移偏移值
 	tx = self.transform.tx;
 	ty = self.transform.ty;
     scale = self.scaleX;
@@ -25,7 +25,7 @@
 	UITouch *touch = [touches anyObject];
 	if (touch.tapCount == 3)
 	{
-		// Reset geometry upon triple-tap
+		// 連續點擊三次，重置
 		self.transform = CGAffineTransformIdentity;
 		tx = 0.0f; ty = 0.0f; scale = 1.0f;	theta = 0.0f;
 	}
@@ -38,11 +38,11 @@
 
 - (void) updateTransformWithOffset: (CGPoint) translation
 {
-	// Create a blended transform representing translation, rotation, and scaling
+	// 建立混合型幾何轉換，包含位移、旋轉、縮放
 	self.transform = CGAffineTransformMakeTranslation(translation.x + tx, translation.y + ty);
 	self.transform = CGAffineTransformRotate(self.transform, theta);
     
-    // Guard against scaling too low, by limiting the scale factor
+    // 限制縮放率，避免變得太小
     if (scale > 0.5f)
         self.transform = CGAffineTransformScale(self.transform, scale, scale);
     else
@@ -75,16 +75,16 @@
 
 - (id) initWithImage:(UIImage *)image
 {
-	// Initialize and set as touchable
+	// 初始並設定為可觸控
 	if (!(self = [super initWithImage:image])) return self;
 	
 	self.userInteractionEnabled = YES;
 	
-	// Reset geometry to identities
+	// 重置為同等幾何轉換
 	self.transform = CGAffineTransformIdentity;
 	tx = 0.0f; ty = 0.0f; scale = 1.0f;	theta = 0.0f;
 
-	// Add gesture recognizer suite
+	// 加入多個手勢辨識器
 	UIRotationGestureRecognizer *rot = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
 	UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
 	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
