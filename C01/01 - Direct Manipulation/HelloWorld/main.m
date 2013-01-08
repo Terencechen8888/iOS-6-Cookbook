@@ -62,7 +62,7 @@
 
 - (void) layoutFlowers
 {
-    // Move every flower into a new random place
+    // 移動所有花朵到新的亂數位置
     [UIView animateWithDuration:0.3f animations: ^(){
         for (UIView *flowerDragger in self.view.subviews)
             flowerDragger.center = [self randomFlowerPosition];}];
