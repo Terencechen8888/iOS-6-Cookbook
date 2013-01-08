@@ -53,12 +53,12 @@
 @implementation TestBedViewController
 - (CGPoint) randomFlowerPosition
 {
-    CGFloat halfFlower = 32.0f; // half of the size of the flower
+    CGFloat halfFlower = 32.0f; // 花朵一半的大小
     
-    // The flower must be placed fully within the view. Inset accordingly
+    // 花朵必須完整顯示於視圖內，依此設定CGRectInset
     CGSize insetSize = CGRectInset(self.view.bounds, 2*halfFlower, 2*halfFlower).size;
 
-    // Return a random position within the inset bounds
+    // 回傳範圍內的一個亂數位置
     CGFloat randomX = random() % ((int)insetSize.width) + halfFlower;
     CGFloat randomY = random() % ((int)insetSize.height) + halfFlower;
     return CGPointMake(randomX, randomY);
@@ -66,7 +66,7 @@
 
 - (void) layoutFlowers
 {
-    // Move every flower into a new random place
+    // 移動所有花朵到新的亂數位置
     [UIView animateWithDuration:0.3f animations: ^(){
         for (UIView *flowerDragger in self.view.subviews)
             flowerDragger.center = [self randomFlowerPosition];}];
@@ -82,10 +82,10 @@
     [super loadView];
     self.view.backgroundColor = [UIColor blackColor];
     
-    NSInteger maxFlowers = 12; // number of flowers to add
+    NSInteger maxFlowers = 12; // 花朵的數目
     NSArray *flowerArray = @[@"blueFlower.png", @"pinkFlower.png", @"orangeFlower.png"];
 
-    // Add the flowers
+    // 加入花朵
 	for (int i = 0; i < maxFlowers; i++)
 	{
 		NSString *whichFlower = [flowerArray objectAtIndex:(random() % flowerArray.count)];
@@ -93,13 +93,13 @@
 		[self.view addSubview:flowerDragger];
     }
     
-    // Provide a "Randomize" button
+    // 提供亂數擺放花朵的"Randomize"按鈕
     self.navigationItem.rightBarButtonItem = BARBUTTON(@"Randomize", @selector(layoutFlowers));
 }
 
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    // Check for any off-screen flowers and move them into place
+    // 檢查花朵是否在螢幕外，若是則移動到螢幕內
     
     CGFloat halfFlower = 32.0f;
     CGRect targetRect = CGRectInset(self.view.bounds, halfFlower * 2, halfFlower * 2);
