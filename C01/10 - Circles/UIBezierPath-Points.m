@@ -13,11 +13,11 @@ void getPointsFromBezier(void *info, const CGPathElement *element)
 {
     NSMutableArray *bezierPoints = (__bridge NSMutableArray *)info;    
     
-    // Retrieve the path element type and its points
+    // 取得路徑元素型別與其上的點
     CGPathElementType type = element->type;
     CGPoint *points = element->points;
     
-    // Add the points if they're available (per type)
+    // 如果可用的話（根據型別），把點加入
     if (type != kCGPathElementCloseSubpath)
     {
         [bezierPoints addObject:VALUE(0)];
