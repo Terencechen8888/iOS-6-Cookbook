@@ -1,3 +1,12 @@
+這裡是The Core iOS 6 Developer's Cookbook (4th Edition)的範例程式碼，我將原始碼裡的註釋翻譯成中文。
+
+原文書的Amazon網址：
+http://www.amazon.com/Core-iOS-Developers-Cookbook-Library/dp/0321884213/ref=sr_1_1?s=books&ie=UTF8&qid=1357658295&sr=1-1
+
+中文翻譯本的網址：
+
+<hr />
+
 <h3>iOS Developer's Cookbook</h3>
 Welcome to the source code repository for the iOS 6 edition of the iOS Developer's Cookbook.  
 
@@ -16,28 +25,39 @@ Although each programmer brings different goals and experiences to the table, mo
 
 
 * "How do I build a table?"
+
 * "How do I create a secure Keychain entry?"
+
 * "How do I search the Address Book?"
+
 * "How do I move between views?"
+
 * "How do I use Core Location, the gyro, and the magnetometer?"
 * "How do I draw text around shapes?"
 * "How do I use a Page View controller?"
 
+
 And so on. If you've asked yourself these questions, then this book is for you. The iOS Developer's Cookbook will get you up to speed and working with the iOS SDK, offering you ready-to-use solutions for the apps you're building today.
+
 
 <h3>What's the deal with main.m?</h3>
 For the sake of pedagogy, this book's sample code usually presents itself in a single main.m file. This is not how people normally develop iOS or Cocoa applications, or *should* be developing them, but it provides a great way of presenting a single big idea. 
 
 It's hard to tell a story when readers must look through 5 or 7 or 9 individual files at once. Offering a single file concentrates that story, allowing access to that idea in a single chunk.
-These samples are not intended as stand-alone applications. They are there to demonstrate a single recipe and a single idea. A main.m file with a central presentation reveals the implementation story in one place. 
+
+These samples are not intended as stand-alone applications. They are there to demonstrate a single recipe and a single idea. A main.m file with a central presentation reveals the implementation story in one place. 
 
 Readers can study these concentrated ideas and transfer them into normal application structures, using the standard file structure and layout. The presentation in this book does not produce code in a day-to-day best practices approach. Instead, it offers concise solutions that you can incorporate back into your work as needed.
 
+
 Contrast that to Apple's sample code, where you must comb through many files in order to build up a mental model of the concepts that are on-offer. Those samples are built as full applications, often doing tasks that are related to but not essential to what you need to solve, with many distracting flourishes. Finding relevant portions is a *lot* of work. The effort may outweigh any gains. 
+
 
 There are two exceptions to this one-file rule. First, application-creation walkthroughs use the full file structure created by Xcode to mirror the reality of what you'd expect to build on your own. The walk through folders may therefore contain a dozen or more files at once. 
 
+
 Second, standard implementation and header files are provided when the class itself is the recipe. Instead of highlighting a technique, some recipes offer pre-cooked class implementations and categories (that is, extensions to a pre-existing class, rather than a child class). For those recipes, look for separate .m and .h files in addition to the skeletal main.m that encapsulates the rest of the story.
+
 
 <h3>How to build these projects</h3>
 You should be able to build these projects for the simulator or use your team provision to build and deploy to devices. Before compiling, make sure you select a deployment target using the pop-up menu at the top-left of the Xcode window. 
