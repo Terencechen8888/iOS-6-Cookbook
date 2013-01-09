@@ -28,7 +28,7 @@
 	[super touchesBegan:touches withEvent:event];
 	if (self.tapDelegate) [self.tapDelegate performSegmentAction:self];
     
-    // Add a little extra feedback
+    // 加入小小的視覺回饋
     NSDictionary *attributeDictionary = @{UITextAttributeTextColor : [UIColor lightGrayColor]};
     [self setTitleTextAttributes:attributeDictionary forState:UIControlStateSelected];
 }
@@ -53,7 +53,7 @@
     NSArray *items = [@"One*Two*Three" componentsSeparatedByString:@"*"];
     NSString *selected = [items objectAtIndex:seg.selectedSegmentIndex];
     
-    // Check for a second tap
+    // 檢查是否為第二次點擊
     if ([selected isEqualToString:self.title])
         selected = [NSString stringWithFormat:@"%@ (again)", selected];
     self.title = selected;
@@ -64,7 +64,7 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Add a segment testbed to the view
+    // 加入可回應點擊兩次的分段控制項
     NSArray *items = [@"One*Two*Three" componentsSeparatedByString:@"*"];
     DoubleTapSegmentedControl *seg = [[DoubleTapSegmentedControl alloc] initWithItems:items];
     seg.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 44.0f);
