@@ -9,25 +9,25 @@
 #import "Thumb.h"
 
 @implementation CustomSlider
-// Update the thumb images as needed
+// 視情況更新大姆哥圖像
 - (void) updateThumb
 {
-	// Only update the thumb when registering significant changes, i.e. 10%
+	// 數值超過一定變動程度以上，便更新大姆哥，譬如10%
 	if ((self.value < 0.98) && (ABS(self.value - previousValue) < 0.1f)) return;
 	
-	// create a new custom thumb image and use it for the highlighted state
+	// 高亮度狀態下，建立自訂後的大姆哥圖像
     UIImage *customimg = thumbWithLevel(self.value);
 	[self setThumbImage: customimg forState: UIControlStateHighlighted];
 	previousValue = self.value;
 }
 
-// Expand the slider to accommodate the bigger thumb
+// 增大滑桿的尺寸，容納尺寸較大的大姆哥
 - (void) startDrag: (UISlider *) aSlider
 {
 	self.frame = CGRectInset(self.frame, 0.0f, -30.0f);
 }
 
-// At release, shrink the frame back to normal
+// 手指離開螢幕，將滑桿尺寸調回原本大小
 - (void) endDrag: (UISlider *) aSlider
 {
     self.frame = CGRectInset(self.frame, 0.0f, 30.0f);
@@ -38,13 +38,13 @@
     if (!(self = [super initWithFrame:aFrame]))
         return self;
     
-    // Initialize slider settings
+    // 滑桿數值的初始值
 	previousValue = -99.0f;
     self.value = 0.0f;
 
     [self setThumbImage:simpleThumb() forState:UIControlStateNormal];
     
-    // Create the callbacks for touch, move, and release
+    // 設定觸控事件（開始、移動、結束）的回呼方法
 	[self addTarget:self action:@selector(startDrag:) forControlEvents:UIControlEventTouchDown];
 	[self addTarget:self action:@selector(updateThumb) forControlEvents:UIControlEventValueChanged];
 	[self addTarget:self action:@selector(endDrag:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];

@@ -17,7 +17,7 @@
 @implementation TestBedViewController
 - (void) updateValue: (UISlider *) aSlider
 {
-    // Scale the title view
+    // 縮放標題視圖
     self.navigationItem.titleView.transform = CGAffineTransformMakeScale(1.0f + 4.0f * aSlider.value, 1.0f);
 }
 
@@ -30,12 +30,12 @@
     [[UISlider appearance] setMinimumTrackTintColor:[UIColor blackColor]];
     [[UISlider appearance] setMaximumTrackTintColor:[UIColor grayColor]];
     
-	// Add the slider
+	// 加入滑桿
     slider = [CustomSlider slider];
     [slider addTarget:self action:@selector(updateValue:) forControlEvents:UIControlEventValueChanged];
 	[self.view addSubview:slider];
     
-    // Create a custom title view
+    // 建立客製標題視圖
     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
     self.navigationItem.titleView = iv;
 }
