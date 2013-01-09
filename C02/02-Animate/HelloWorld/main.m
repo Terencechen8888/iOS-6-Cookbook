@@ -28,7 +28,7 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Create button and add target
+    // 建立按鈕、設定目標
     button = [PushButton button];
     [self.view addSubview:button];
     [button addTarget:self action:@selector(pushed:) forControlEvents: UIControlEventTouchUpInside];
