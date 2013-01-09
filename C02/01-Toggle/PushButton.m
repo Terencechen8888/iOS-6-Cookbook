@@ -39,23 +39,23 @@
     PushButton *button = [PushButton buttonWithType:UIButtonTypeCustom];
 	button.frame = CGRectMake(0.0f, 0.0f, 300.0f, 233.0f);
     
-    // Set up the button aligment properties
+    // 設定按鈕的對齊屬性
 	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 	
-	// Set the font and color
+	// 設定字型與顏色
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
 	button.titleLabel.font = [UIFont boldSystemFontOfSize:24.0f];
     
-    // Set up the art
+    // 設定美術圖案
     [button setBackgroundImage:BASEGREEN forState:UIControlStateNormal];
     [button setBackgroundImage:PUSHGREEN forState:UIControlStateHighlighted];
     [button setTitle:@"On" forState:UIControlStateNormal];
     [button setTitle:@"On" forState:UIControlStateHighlighted];
     button.isOn = YES;
 	
-	// Add action. Client can add one too.
+	// 加入動作
 	[button addTarget:button action:@selector(toggleButton:) forControlEvents: UIControlEventTouchUpInside];
     
     return button;
