@@ -15,13 +15,13 @@ static TOUCHkitView *sharedInstance = nil;
 
 + (id) sharedInstance 
 {
-    // Create shared instance if it does not yet exist
+    // 若尚未存在便建立共享實體
     if(!sharedInstance)
     {
 		sharedInstance = [[self alloc] initWithFrame:CGRectZero];
     }
     
-    // Parent it to the key window
+    // 成為主視窗的子視圖
     if (!sharedInstance.superview)
     {
         UIWindow *keyWindow= [UIApplication sharedApplication].keyWindow;
@@ -33,7 +33,7 @@ static TOUCHkitView *sharedInstance = nil;
 }
 
 
-// You can override the default color if you want using touchColor property
+// 想要使用touchColor屬性的話可以改寫預設的顏色
 - (id) initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame])
@@ -48,7 +48,7 @@ static TOUCHkitView *sharedInstance = nil;
 	return self;
 }
 
-// Basic Touches processing
+// 基本的觸控處理
 
 - (void) touchesBegan:(NSSet *)theTouches withEvent:(UIEvent *)event
 {
@@ -68,18 +68,18 @@ static TOUCHkitView *sharedInstance = nil;
 	[self setNeedsDisplay];
 }
 
-// Draw touches interactively
+// 隨著觸控事件繪製回饋圓圈
 - (void) drawRect: (CGRect) rect
 {
-    // Clear
+    // 清除
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextClearRect(context, self.bounds);
 	
-    // Fill see-through
+    // 填滿透明色
 	[[UIColor clearColor] set];
 	CGContextFillRect(context, self.bounds);
 	
-	float size = 25.0f; // based on 44.0f standard touch point
+	float size = 25.0f; // 根據標準的44.0f觸控點而來
 	
     for (UITouch *touch in touches)
     {
@@ -95,7 +95,7 @@ static TOUCHkitView *sharedInstance = nil;
         CGContextFillPath(context);
     }
 
-    // Reset touches after use
+    // 使用後重置觸控
     touches = nil;
 }
 @end
