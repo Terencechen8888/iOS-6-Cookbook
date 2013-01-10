@@ -16,6 +16,6 @@
 }
 @property (nonatomic, assign) BOOL value;
 
-// Target must implement handleUnlock:
+// 目標必須實作handleUnlock:
 + (id) controlWithTarget: (id) target;
 @end

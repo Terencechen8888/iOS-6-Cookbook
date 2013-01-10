@@ -140,7 +140,7 @@
     CGFloat offset = touchPoint.x;
     if (offset > trackView.frame.size.width * 0.75f)
     {
-        // complete, unlock, and fade away
+        // 完成，解鎖然後淡出
         [self sendActionsForControlEvents:UIControlEventValueChanged];
         self.value = NO;
         [UIView animateWithDuration:0.5f animations:^(){
@@ -151,7 +151,7 @@
     }
     else
     {
-        // fail - reset
+        // 失敗，重置
         [UIView animateWithDuration:0.2f animations:^(){
             thumbView.center = [self thumbStartPoint];
         }];

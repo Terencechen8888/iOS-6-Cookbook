@@ -7,10 +7,10 @@
 #import "RibbonPull.h"
 #import <AudioToolbox/AudioToolbox.h>
 
-// Return the alpha byte offset
+// 回傳alpha位元組的偏移值
 static NSUInteger alphaOffset(NSUInteger x, NSUInteger y, NSUInteger w){return y * w * 4 + x * 4 + 0;}
 
-// Return a byte array of image
+// 回傳圖像的位元組陣列
 NSData *getBitmapFromImage (UIImage *image)
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -21,7 +21,7 @@ NSData *getBitmapFromImage (UIImage *image)
     }
 	
 	CGSize size = image.size;
-	Byte *bitmapData = calloc(size.width * size.height * 4, 1); // Courtesy of Dirk. Thanks!
+	Byte *bitmapData = calloc(size.width * size.height * 4, 1); // 感謝Dirk提供！
     if (bitmapData == NULL)
     {
         fprintf (stderr, "Error: Memory not allocated!");
@@ -64,7 +64,7 @@ NSData *getBitmapFromImage (UIImage *image)
     pullImageView = [[UIImageView alloc] initWithImage:ribbonImage];
     pullImageView.frame = CGRectMake(0.0f, 75.0f - ribbonImage.size.height, ribbonImage.size.width, ribbonImage.size.height);
     
-    // Initialize a wiggle count to draw attention to the control
+    // 初始化扭動次數，吸引使用者的目光
     wiggleCount = 0;
     
     [self addSubview:pullImageView];
@@ -85,7 +85,7 @@ NSData *getBitmapFromImage (UIImage *image)
 
 /*
  
- DISCOVERABILITY
+ 吸引使用者目光
  
  */
 
@@ -107,7 +107,7 @@ NSData *getBitmapFromImage (UIImage *image)
 
 /*
  
- CLICK SOUND
+ 音效
  
  */
 
@@ -131,7 +131,7 @@ void _systemSoundDidComplete(SystemSoundID ssID, void *clientData)
 
 /*
  
- TOUCH TRACKING
+ 觸控追蹤
  
  */
 
@@ -139,13 +139,13 @@ void _systemSoundDidComplete(SystemSoundID ssID, void *clientData)
 {
     Byte *bytes = (Byte *) ribbonData.bytes;
     
-	// Establish touch down event
+	// 建立UIControlEventTouchDown事件
 	CGPoint touchPoint = [touch locationInView:self];
     CGPoint ribbonPoint = [touch locationInView:pullImageView];
     
     uint offset = alphaOffset(ribbonPoint.x, ribbonPoint.y, pullImageView.bounds.size.width);
     
-    // Test for containment and alpha
+    // 測試是否在範圍內與透明度
     if (CGRectContainsPoint(pullImageView.frame, touchPoint) &&
         (bytes[offset] > 85))
     {
@@ -159,7 +159,7 @@ void _systemSoundDidComplete(SystemSoundID ssID, void *clientData)
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    // Once the user has figured this out, don't wiggle any more
+    // 使用者開始觸控，不再扭動
     wiggleCount = 999;
     
     CGPoint touchPoint = [touch locationInView:self];
@@ -168,13 +168,13 @@ void _systemSoundDidComplete(SystemSoundID ssID, void *clientData)
     else 
         [self sendActionsForControlEvents:UIControlEventTouchDragOutside];
     
-    // Adjust art
+    // 調整美術圖案
     CGFloat dy = MAX(touchPoint.y - touchDownPoint.y, 0.0f);
     dy = MIN(dy, self.bounds.size.height - 75.0f);
     
     pullImageView.frame = CGRectMake(0.0f, dy + 75.0f - ribbonImage.size.height, ribbonImage.size.width, ribbonImage.size.height);
     
-    // Detect if travel has been sufficient to trigger everything
+    // 判斷觸控移動距離是否足夠觸發
     if (dy > 75.0f)
     {
         [self playClick];
@@ -191,7 +191,7 @@ void _systemSoundDidComplete(SystemSoundID ssID, void *clientData)
 
 - (void) endTrackingWithTouch: (UITouch *)touch withEvent: (UIEvent *)event
 {
-    // Test if touch ended inside or outside
+    // 測試觸控結束位置落於範圍內或外
     CGPoint touchPoint = [touch locationInView:self];
     if (CGRectContainsPoint(self.bounds, touchPoint))
         [self sendActionsForControlEvents:UIControlEventTouchUpInside];
