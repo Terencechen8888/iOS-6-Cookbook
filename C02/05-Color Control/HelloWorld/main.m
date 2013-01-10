@@ -29,12 +29,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"Color Control";
     
-    // Add control to view
+    // 將控制項加入視圖
 	colorControl = [[ColorControl alloc] initWithFrame:CGRectInset([UIScreen mainScreen].applicationFrame, 80.0f, 80.0f)];
     colorControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:colorControl];
     
-	// Add target-action pair
+	// 設定目標-動作配對
 	[colorControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 
 }
