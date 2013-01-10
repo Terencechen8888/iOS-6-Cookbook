@@ -41,7 +41,7 @@ typedef void (^CompletionBlock)(BOOL completed);
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView
 {
-    // Fudge a little and take the floor to accommodate division issues
+    // 稍微修改然後再取floor，避免除法會發生的問題
 	pageControl.currentPage = floor((scrollView.contentOffset.x / dimension) + 0.25);
 }
 
@@ -139,12 +139,12 @@ typedef void (^CompletionBlock)(BOOL completed);
 
 - (void) requestDelete: (UIButton *) button
 {
-	// Bring forth the cancel and confirm buttons
+	// 顯示取消與確定按鈕
 	[cancelButton.superview bringSubviewToFront:cancelButton];
 	[confirmButton.superview bringSubviewToFront:confirmButton];
 	cancelButton.enabled = YES;
 	
-	// Animate the confirm button into place
+	// 以動畫效果顯示確定按鈕
 	confirmButton.center = CGPointMake(deleteButton.center.x - 300.0f, deleteButton.center.y);
 	
 	[UIView animateWithDuration:0.3f animations:^(void)
@@ -162,18 +162,18 @@ typedef void (^CompletionBlock)(BOOL completed);
     pageControl.numberOfPages = 0;
 	[pageControl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
     
-	// Create the scroll view and set its content size and delegate
+	// 建立捲動視圖，設定位置大小與委派
 	scrollView = [[UIScrollView alloc] init];
 	scrollView.pagingEnabled = YES;
 	scrollView.delegate = self;
 	[self.view addSubview:scrollView];
     
-	// Load in pages
+	// 載入頁面
 	for (int i = 0; i < INITPAGES; i++)
         [self addPage];    
     pageControl.currentPage = 0;
 	
-	// Increase the size of the add button
+	// 加大新增按鈕的大小，比較容易點擊
     addButton.frame = CGRectInset(addButton.frame, -20.0f, -20.0f);
 }
 
