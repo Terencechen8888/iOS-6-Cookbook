@@ -49,12 +49,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = BARBUTTON(@"Action", @selector(action:));
     
-    // Examples later in the chapter
+    // 本章之後將介紹的範例
     
     // Network activity indicator
     // [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    // Badging
+    // 標記數字
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:99];
     // [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }

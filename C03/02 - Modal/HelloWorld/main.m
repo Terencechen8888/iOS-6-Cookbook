@@ -27,7 +27,7 @@
 
 @implementation TestBedViewController
 
-// Choose from 3 buttons and cancel
+// 三個選項按鈕與Cancel按鈕
 - (void) alertThree: (id) sender
 {
     // Cancel = 0, One = 1, Two = 2, Three = 3
@@ -36,7 +36,7 @@
     NSLog(@"Selected Button: %d", [delegate show]);
 }
 
-// Text input
+// 文字輸入
 - (void) alertText: (id) sender
 {
     // OK = 1, Cancel = 0
@@ -51,7 +51,7 @@
     [[[UIAlertView alloc] initWithTitle:nil message:response delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Okay", nil] show];
 }
 
-// Basic action sheet
+// 基本動作表
 - (void) actionBasic: (id) sender
 {
     // Destructive = 0, One = 1, Two = 2, Three = 3, Cancel = 4
@@ -63,10 +63,10 @@
     NSLog(@"Selected Button: %d", result);
 }
 
-// Long action sheet
+// 長動作表
 - (void) actionSheetLong: (id) sender
 {
-    // The following was borked in early iOS 6 betas -- Use scrolling lists carefully with run loops
+    // 底下程式碼無法用於iOS 6早期beta測試版 -- 可捲動列表加上run loop，需小心carefully with run loops
     // UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", nil];
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"One", @"Two", @"Three", @"Four", @"Five", nil];

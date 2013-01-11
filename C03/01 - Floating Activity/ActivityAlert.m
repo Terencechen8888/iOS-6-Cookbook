@@ -22,7 +22,7 @@ static UIActivityIndicatorView *activity = nil;
         alertView = [[UIAlertView alloc] initWithTitle:alertText message:@"\n\n\n\n\n\n" delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
         [alertView show];        
         activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        // activity.color = [UIColor redColor]; // you can set colors
+        // activity.color = [UIColor redColor]; // 你可以設定顏色
         activity.center = CGPointMake(CGRectGetMidX(alertView.bounds), CGRectGetMidY(alertView.bounds));
         [activity startAnimating];
         [alertView addSubview: activity];
