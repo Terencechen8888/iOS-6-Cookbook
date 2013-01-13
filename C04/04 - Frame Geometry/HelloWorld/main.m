@@ -6,7 +6,7 @@
 
 /*
  
- NOTE: This is just an empty shell for the UIView category. 
+ 注意：這只是UIView類目的空殼而已
  
  */
 

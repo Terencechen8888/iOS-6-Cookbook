@@ -6,7 +6,7 @@
 
 #import "UIView-ViewFrameGeometry.h"
 
-// These are repeats, to avoid dependency on other files
+// 這些是重複的，就不必依靠其他檔案了
 
 CGPoint CGRectGetCenter(CGRect rect)
 {
@@ -35,7 +35,7 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
 @implementation UIView (ViewGeometry)
 
 
-// Retrieve and set the origin
+// 取回原點、設定原點
 - (CGPoint) origin
 {
     return self.frame.origin;
@@ -49,7 +49,7 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
 }
 
 
-// Retrieve and set the size
+// 取回大小、設定大小
 - (CGSize) size
 {
     return self.frame.size;
@@ -62,8 +62,10 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
     self.frame = newframe;
 }
 
-// Midpoint is with respect to the view's coordinate system
-// and not the superview's coordinate system
+// 查詢其他與frame相關的位置座標
+
+// midpoint中點，對應於視圖本身的座標系統
+// center中心點，對應於父視圖的座標系統
 - (CGPoint) midpoint
 {
     CGRect frame = self.frame;
@@ -73,7 +75,6 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
     return CGPointMake(x, y);
 }
 
-// Query other frame locations
 - (CGPoint) bottomRight
 {
     CGFloat x = self.frame.origin.x + self.frame.size.width;
@@ -96,7 +97,7 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
 }
 
 
-// Retrieve and set height, width, top, bottom, left, right
+// 取回與設定高度、寬度、top、bottom、left、right
 - (CGFloat) height
 {
     return self.frame.size.height;
@@ -170,14 +171,14 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
     self.frame = newframe;
 }
 
-// Move via offset
+// 以偏移值移動
 - (void) moveBy: (CGPoint) delta
 {
     CGPoint newCenter = CGPointMake(self.center.x + delta.x, self.center.y + delta.y);
     self.center = newCenter;
 }
 
-// Scaling
+// 縮放
 - (void) scaleBy: (CGFloat) scaleFactor
 {
     CGRect newframe = self.frame;
@@ -186,7 +187,7 @@ CGRect CGRectCenteredInRect(CGRect rect, CGRect mainRect)
     self.frame = newframe;
 }
 
-// Ensure that both dimensions fit within the given size by scaling down
+// 縮小，確保兩個方向都能在給定大小之內
 - (void) fitInSize: (CGSize) aSize
 {
     CGFloat scale;
