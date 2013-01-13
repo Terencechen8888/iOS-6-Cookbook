@@ -25,18 +25,18 @@ static const char nametag_key; // Thanks Oliver Drobnik
 {
     if (!aName) return nil;
     
-    // Is this the right view?
+    // 這是正確的視圖嗎？
     if ([self.nametag isEqualToString:aName])
         return self;
     
-    // Recurse depth first on subviews
+    // 搜度優先遞迴搜尋第一個子視圖
     for (UIView *subview in self.subviews) 
     {
         UIView *resultView = [subview viewNamed:aName];
         if (resultView) return resultView;
     }
     
-    // Not found
+    // 沒找到
     return nil;
 }
 
