@@ -17,24 +17,24 @@
 
 @implementation TestBedViewController
 
-// Recursively travel down the view tree, increasing the
-// indentation level for children
+// 遞迴式往下探索視圖樹
+// 每往下一層就增加縮排深度
 - (void) dumpView: (UIView *) aView atIndent: (int) indent into: (NSMutableString *) outstring
 {
-    // Add the indentation
+    // 增加代表縮排深度的橫線
     for (int i = 0; i < indent; i++)
         [outstring appendString:@"--"];
     
-    // Add the class description
+    // 接著印出類別描述
     [outstring appendFormat:@"[%2d] %@\n", indent,
      [[aView class] description]];
     
-    // Recurse on subviews
+    // 遞迴式走過每一個子視圖
     for (UIView *view in aView.subviews)
         [self dumpView:view atIndent:indent + 1 into:outstring];
 }
 
-// Start the tree recursion at level 0 with the root view
+// 從根視圖以層級0開始，遞迴探索樹狀結構
 - (void) dumpTree: (id) sender
 {
     NSMutableString *outstring = [NSMutableString string];
@@ -44,13 +44,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView 
 { 
-	// This simple table has only one section
+	// 此表格只有一段
 	return 1; 
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section 
 {
-	// Return the number of items
+	// 回傳項目個數
 	return items.count;
 }
 
@@ -63,7 +63,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // Respond to user interaction
+    // 回應使用者的點選
     self.title = [items objectAtIndex:indexPath.row];
 }
 
@@ -75,7 +75,7 @@
     
     self.navigationItem.rightBarButtonItem = BARBUTTON(@"Dump", @selector(dumpTree:));
     
-    // Feel free to edit the Sample xib and storyboard files to get a sense of how they work
+    // 請任意修改Sample.xib與storyboard檔，觀看結果有何不同
     UIView *sampleView = [[[NSBundle mainBundle] loadNibNamed:@"Sample" owner:self options:NULL] objectAtIndex:0];
     if (sampleView)
     {

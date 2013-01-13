@@ -17,7 +17,7 @@
 
 @implementation TestBedViewController
 
-// Return an exhaustive descent of the view’s subviews
+// 回傳某視圖完整的子視圖清單
 NSArray *allSubviews(UIView *aView)
 {
     NSArray *results = [aView subviews];
@@ -30,7 +30,7 @@ NSArray *allSubviews(UIView *aView)
     return results;
 }
 
-// Return all views throughout the application
+// 回傳應用程式裡所有的視圖
 NSArray *allApplicationViews()
 {
     NSArray *results = [UIApplication sharedApplication].windows;
@@ -42,7 +42,7 @@ NSArray *allApplicationViews()
     return results;
 }
 
-// Return an array of parent views from the window down to the view
+// 回傳包含所有父視圖的陣列，從視窗開始
 NSArray *pathToView(UIView *aView)
 {
     NSMutableArray *array = [NSMutableArray arrayWithObject:aView];
@@ -56,7 +56,7 @@ NSArray *pathToView(UIView *aView)
     return array;
 }
 
-// Start the tree recursion at level 0 with the root view
+// 從層級0根視圖開始，樹狀遞迴
 - (void) action: (id) sender
 {
     NSLog(@"%@", allSubviews(self.view.window));
@@ -64,19 +64,19 @@ NSArray *pathToView(UIView *aView)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView 
 { 
-	// This simple table has only one section
+	// 此表格只有一段
 	return 1; 
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section 
 {
-	// Return the number of items
+	// 回傳項目個數
 	return items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	// Dequeue or create a cell
+	// 從佇列取出儲存格，或建立新的
 	UITableViewCellStyle style =  UITableViewCellStyleDefault;
 	UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:@"BaseCell"];
     
@@ -89,7 +89,7 @@ NSArray *pathToView(UIView *aView)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // Respond to user interaction
+    // 回應使用者的點選
     self.title = [items objectAtIndex:indexPath.row];
 }
 
