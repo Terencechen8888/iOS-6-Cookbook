@@ -36,7 +36,7 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Create objects
+    // 建立物件
     maroon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Maroon.png"]];
     purple = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Purple.png"]];
     

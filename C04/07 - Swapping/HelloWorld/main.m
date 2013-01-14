@@ -42,19 +42,19 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Add secondary object
+    // 加入次要物件
     backObject = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Maroon.png"]];
     [self.view addSubviewAndConstrainToBounds:backObject];
     [backObject centerHorizontallyInSuperview];
     [backObject centerVerticallyInSuperview];
     
-    // Add primary object
+    // 加入主要物件
     frontObject = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Purple.png"]];
     [self.view addSubviewAndConstrainToBounds:frontObject];
     [frontObject centerHorizontallyInSuperview];
     [frontObject centerVerticallyInSuperview];
 
-    // Prepare secondary object
+    // 準備次要物件
     backObject.alpha = 0.0f;
     backObject.transform = CGAffineTransformMakeScale(0.25f, 0.25f);
 

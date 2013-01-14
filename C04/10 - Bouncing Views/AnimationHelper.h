@@ -12,14 +12,14 @@ typedef void (^CompletionBlock)(BOOL finished);
 #define DEFAULT_TIME [[UIApplication sharedApplication] statusBarOrientationAnimationDuration]
 
 @interface AnimationHelper : NSObject
-// transform
+// 幾何轉換
 + (AnimationBlock) viewAnimation: (UIView *) aView viaTransform: (CGAffineTransform) transientTransform toTransform: (CGAffineTransform) finalTransform withDuration: (CGFloat) firstDuration andDuration: (CGFloat) secondDuration completion: (CompletionBlock) finishBlock;
 + (AnimationBlock) viewAnimation: (UIView *) aView viaTransform: (CGAffineTransform) transientTransform toTransform: (CGAffineTransform) finalTransform completion: (CompletionBlock) finishBlock;
 + (AnimationBlock) viewAnimation: (UIView *) aView viaTransform: (CGAffineTransform) transientTransform toTransform: (CGAffineTransform) finalTransform;
 + (AnimationBlock) viewAnimation: (UIView *) aView toTransform: (CGAffineTransform) aTransform withDuration: (CGFloat) aDuration;
 + (AnimationBlock) viewAnimation: (UIView *) aView toTransform: (CGAffineTransform) aTransform;
 
-// center
+// 中心點
 + (AnimationBlock) viewAnimation: (UIView *) aView viaCenter: (CGPoint) transientCenter toCenter: (CGPoint) finalCenter withDuration: (CGFloat) firstDuration andDuration: (CGFloat) secondDuration completion: (CompletionBlock) finishBlock;
 + (AnimationBlock) viewAnimation: (UIView *) aView viaCenter: (CGPoint) transientCenter toCenter: (CGPoint) finalCenter completion: (CompletionBlock) finishBlock;
 + (AnimationBlock) viewAnimation: (UIView *) aView viaCenter: (CGPoint) transientCenter toCenter: (CGPoint) finalCenter;
@@ -40,11 +40,11 @@ typedef void (^CompletionBlock)(BOOL finished);
 + (AnimationBlock) viewAnimation: (UIView *) aView toBounds: (CGRect) aBounds withDuration: (CGFloat) aDuration;
 + (AnimationBlock) viewAnimation: (UIView *) aView toBounds: (CGRect) aBounds;
 
-// Create an animated alpha block
+// 建立alpha的動畫block
 + (AnimationBlock) viewAnimation: (UIView *) aView toAlpha: (CGFloat) anAlphaLevel withDuration: (CGFloat) aDuration;
 + (AnimationBlock) viewAnimation: (UIView *) aView toAlpha: (CGFloat) anAlphaLevel;
 
-// Create an animated bg color block
+// 建立背景顏色的動畫block
 + (AnimationBlock) viewAnimation: (UIView *) aView toColor: (UIColor *) aColor withDuration: (CGFloat) aDuration;
 + (AnimationBlock) viewAnimation: (UIView *) aView toColor: (UIColor *) aColor;
 @end

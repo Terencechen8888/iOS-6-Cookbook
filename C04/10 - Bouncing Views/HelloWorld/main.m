@@ -11,7 +11,7 @@
 #define BARBUTTON(TITLE, SELECTOR) [[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
 #define RECTCENTER(rect) CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
 
-// These are defined in Animation Helper
+// 這些typedef定義在AnimationHelper類別裡
 // typedef void (^AnimationBlock)(void);
 // typedef void (^CompletionBlock)(BOOL finished);
 
@@ -35,7 +35,7 @@
 {
     [self enable:NO];
     
-    // Define the three stages of the animation in forward order
+    // 以正順序定義動畫的三個階段
     AnimationBlock makeSmall = ^(void){
         bounceView.transform = CGAffineTransformMakeScale(0.01f, 0.01f);};
     AnimationBlock makeLarge = ^(void){
@@ -43,7 +43,7 @@
     AnimationBlock restoreToOriginal = ^(void) {
         bounceView.transform = CGAffineTransformIdentity;};
     
-    // Create the three completion links in reverse order
+    // 以反順序建立三個收尾block（completion block）
     CompletionBlock reenable = ^(BOOL finished) {
         [self enable:YES];};
     CompletionBlock shrinkBack = ^(BOOL finished) {
@@ -52,11 +52,11 @@
         [NSThread sleepForTimeInterval:0.5f];
         [UIView animateWithDuration:0.2 animations:makeLarge completion:shrinkBack];};
     
-    // Start the animation
+    // 開始動畫
     [UIView animateWithDuration: 0.1f animations:makeSmall completion:bounceLarge];
 }
 
-// Additional example
+// 額外範例
 - (void) actionScale
 {
     CGFloat midX = CGRectGetMidX(self.view.bounds);
@@ -64,12 +64,12 @@
     CGAffineTransform transientTransform = CGAffineTransformMakeScale(1.2f, 1.2f);
     CGAffineTransform shrinkTransform = CGAffineTransformMakeScale(0.0001f, 0.0001f);
     
-    // Init
+    // 初始化
     [self enable:NO];
     bounceView.center = CGPointMake(midX, midY);
     bounceView.transform = shrinkTransform;
     
-    // Go
+    // 開始
     CompletionBlock allDone = ^(BOOL done){[self enable:YES];};
     CompletionBlock done = ^(BOOL done){sleep(2); [AnimationHelper viewAnimation:bounceView viaTransform:transientTransform toTransform:shrinkTransform completion:allDone]();};
     
@@ -77,7 +77,7 @@
     block();
 }
 
-// Additional example
+// 額外範例
 - (void) actionMove
 {
     CGFloat midX = CGRectGetMidX(self.view.bounds);
@@ -85,12 +85,12 @@
     CGPoint centerPoint = CGPointMake(midX, midY);
     CGPoint beyondPoint = CGPointMake(midX * 1.2f, midY);
     
-    // Init
+    // 初始化
     [self enable:NO];
     bounceView.center = CGPointMake(-midX, midY);
     bounceView.transform = CGAffineTransformIdentity;
     
-    // Go
+    // 開始
     CompletionBlock allDone = ^(BOOL done){[self enable:YES];};
     CompletionBlock done = ^(BOOL done){sleep(2); [AnimationHelper viewAnimation:bounceView viaCenter: CGPointMake(midX * 1.2f, midY)toCenter:CGPointMake(-midX, midY) completion:allDone]();};
     AnimationBlock block = [AnimationHelper viewAnimation:bounceView viaCenter:beyondPoint toCenter:centerPoint completion:done];

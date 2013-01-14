@@ -7,23 +7,23 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (SubviewGeometry)
-// Test whether view fits in its superview at a given center point
+// 根據指定的中心點座標，檢查某視圖是否能被容納於父視圖裡
 - (BOOL) canMoveToCenter: (CGPoint) aCenter inView: (UIView *) aView withInsets: (UIEdgeInsets) insets;
 - (BOOL) canMoveToCenter: (CGPoint) aCenter inView: (UIView *) aView withInset: (float) inset;
 - (BOOL) canMoveToCenter: (CGPoint) aCenter inView: (UIView *) aView;
 
-// Slide view within superview using percents, e.g. 50% horizontal, 60% vertical
-// View is guaranteed to fit within the parent.
+// 在父視圖裡滑動視圖，指定水平與垂直方向的滑動百分比例
+// 保證視圖會被完全容納於父視圖範圍內
 - (CGPoint) centerInView: (UIView *) aView withHorizontalPercent: (float) h withVerticalPercent: (float) v;
 - (CGPoint) centerInSuperviewWithHorizontalPercent: (float) h withVerticalPercent: (float) v;
 
-// Move to a random point in the parent view, where child is guaranteed to
-// fit inside the parent, and if specified, within an inset
+// 移動到父視圖內的亂數位置，子視圖保證會
+// 完全容納在父視圖範圍內，若有指定UIEdgeInsets，也會被侷限在這裡頭
 - (CGPoint) randomCenterInView: (UIView *) aView withInsets: (UIEdgeInsets) insets;
 - (CGPoint) randomCenterInView: (UIView *) aView withInset: (float) inset;
 
-// Animate the movement to a random point within a particular view or the superview
-// The child view is guaranteed to fit fully within the superview
+// 在某視圖或父視圖內，以動畫效果進行移動，移動到亂數位置，
+// 子視圖保證會完全容納在父視圖範圍內
 - (void) moveToRandomLocationInView: (UIView *) aView animated: (BOOL) animated;
 - (void) moveToRandomLocationInSuperviewAnimated: (BOOL) animated;
 @end

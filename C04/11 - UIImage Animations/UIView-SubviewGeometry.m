@@ -7,8 +7,8 @@
 #import "UIView-SubviewGeometry.h"
 static BOOL seeded = NO;
 
-// This is a private version of the function that appears in my UIView Frame category
-// It's included here as a private function to avoid requiring the other file
+// 此函式是我一個UIView關於frame類目裡的功能
+// 我抄來放在這裡，就不需要加入其他檔案了
 CGRect CGRectWithCenter(CGRect rect, CGPoint center)
 {
 	CGRect newrect = CGRectZero;
@@ -38,14 +38,14 @@ CGRect CGRectWithCenter(CGRect rect, CGPoint center)
 }
 
 #pragma mark Percent Displacement
-// Move view into place as a percentage-based displacement
+// 根據百分比例，將視圖移動到該位置
 - (CGPoint) centerInView: (UIView *) aView withHorizontalPercent: (float) h withVerticalPercent: (float) v
 {
-	// Move in by the inset amount and then by size of the subview
+	// 根據UIEdgeInsets移動，然後根據子視圖的大小
 	CGRect baseRect = aView.bounds;
 	CGRect subRect = CGRectInset(baseRect, self.frame.size.width / 2.0f, self.frame.size.height / 2.0f);
 	
-	// Return a point that is h% horizontal and v% vertical
+	// 回傳水平百分比為h%、垂直百分比為v%的座標
 	float px = (float)(h * subRect.size.width);
 	float py = (float)(v * subRect.size.height);
 	return CGPointMake(px + subRect.origin.x, py + subRect.origin.y);
@@ -57,17 +57,17 @@ CGRect CGRectWithCenter(CGRect rect, CGPoint center)
 }
 
 #pragma mark Random
-// Thanks to August Joki and manitoba98
+// 感謝August Joki與manitoba98
 - (CGPoint) randomCenterInView: (UIView *) aView withInsets: (UIEdgeInsets) insets
 {
-    // random seeding
+    // 亂數種子
     if (!seeded) {seeded = YES; srandom(time(NULL));}
     
-	// Move in by the inset amount and then by size of the subview
+	// 根據UIEdgeInsets移動，然後根據子視圖的大小
 	CGRect innerRect = UIEdgeInsetsInsetRect([aView bounds], insets);
 	CGRect subRect = CGRectInset(innerRect, self.frame.size.width / 2.0f, self.frame.size.height / 2.0f);
 	
-	// Return a random point
+	// 回傳亂數點座標
 	float rx = (float)(random() % (int)floor(subRect.size.width));
 	float ry = (float)(random() % (int)floor(subRect.size.height));
 	return CGPointMake(rx + subRect.origin.x, ry + subRect.origin.y);

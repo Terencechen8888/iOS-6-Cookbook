@@ -22,7 +22,7 @@
 
 - (void) animate: (id) sender
 {
-	// Set up the animation
+	// 設定
 	CATransition *animation = [CATransition animation];
 	animation.delegate = self;
 	animation.duration = 1.0f;
@@ -46,7 +46,7 @@
 	}
 	animation.subtype = kCATransitionFromBottom;
 	
-	// Perform the animation
+	// 執行動畫
 	[self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
 	[self.view.layer addAnimation:animation forKey:@"animation"];
 }
@@ -56,13 +56,13 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Add secondary object
+    // 加入次要物件
     backObject = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Maroon.png"]];
     [self.view addSubview:backObject];
     PREPCONSTRAINTS(backObject);
     CENTER_VIEW(self.view, backObject);
     
-    // Add primary object
+    // 加入主要物件
     frontObject = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Purple.png"]];
     [self.view addSubview:frontObject];
     PREPCONSTRAINTS(frontObject);
@@ -70,7 +70,7 @@
 
 	self.navigationItem.rightBarButtonItem = BARBUTTON(@"Go", @selector(animate:));
     
-    // Add a segmented control to select the animation
+    // 加入分段控制項，選擇動畫效果
 	UISegmentedControl *sc = [[UISegmentedControl alloc] initWithItems:[@"Fade Over Push Reveal" componentsSeparatedByString:@" "]];
 	sc.segmentedControlStyle = UISegmentedControlStyleBar;
 	sc. selectedSegmentIndex = 0;

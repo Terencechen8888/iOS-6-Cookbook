@@ -43,7 +43,7 @@
     compareView.transform = CGAffineTransformMakeTranslation(testView.tx, testView.ty);
 }
 
-// Ignore this
+// 請忽略
 /*
 typedef void (^BasicBlock)(void);
 - (void) viewDidAppear:(BOOL)animated

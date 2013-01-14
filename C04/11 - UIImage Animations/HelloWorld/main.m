@@ -30,7 +30,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
 	self.navigationController.navigationBar.tintColor = COOKBOOK_PURPLE_COLOR;
     
-    // Load butterfly images
+    // 載入蝴蝶圖檔
 	NSMutableArray *butterflies = [NSMutableArray array];
 	for (int i = 1; i <= 17; i++)
     {

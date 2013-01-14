@@ -9,7 +9,7 @@
 
 @implementation UIView (BasicConstraints)
  /*
- Alignment reference:
+ 對齊方式
  NSLayoutFormatAlignAllLeft = (1 << NSLayoutAttributeLeft),
  NSLayoutFormatAlignAllRight = (1 << NSLayoutAttributeRight),
  NSLayoutFormatAlignAllTop = (1 << NSLayoutAttributeTop),
@@ -19,7 +19,7 @@
 #pragma mark -
 #pragma mark Debugging
 
-// For debugging
+// 除錯用
 - (NSString *) nameForLayoutAttribute: (NSLayoutAttribute) anAttribute
 {
     switch (anAttribute)
@@ -106,7 +106,7 @@
 #pragma mark -
 #pragma mark Managing Constraints
 
-// This ignores any priority, looking only at y (R) mx + b
+// 這會忽略任何優先順序，只在 y (R) mx + b 尋找
 - (BOOL) constraint: (NSLayoutConstraint *) constraint1 matches: (NSLayoutConstraint *) constraint2
 {
     if (constraint1.firstItem != constraint2.firstItem) return NO;
@@ -120,7 +120,7 @@
     return YES;
 }
 
-// Find first matching constraint. (Priority, Archiving ignored)
+// 找出第一個符合的約束規則（優先順序、封存與否，皆忽略）
 - (NSLayoutConstraint *) constraintMatchingConstraint: (NSLayoutConstraint *) aConstraint
 {
     for (NSLayoutConstraint *constraint in self.constraints)
@@ -138,7 +138,7 @@
     return nil;
 }
 
-// Remove constraint
+// 移除約束規則
 - (void) removeMatchingConstraint: (NSLayoutConstraint *) aConstraint
 {
     NSLayoutConstraint *match = [self constraintMatchingConstraint:aConstraint];
@@ -172,7 +172,7 @@
     [(refersToSuperview ? self.superview : self) addConstraints:constraints];
 }
 
-// "Removing a constraint not held by the view has no effect."
+// 「移除視圖不持有的約束規則，無任何作用」
 - (void) removeVisualFormat: (NSString *) aVisualFormat
 {
     NSArray *constraints = [self constraintsForVisualFormat:aVisualFormat];
@@ -238,7 +238,7 @@
 #pragma mark -
 #pragma mark Alignment and Centering
 
-// Alignment -- or them together if needed
+// 對齊，若需要便OR在一起
 - (NSArray *) alignmentConstraints: (NSLayoutFormatOptions) anAlignment
 {
     NSArray *constraints;
@@ -271,7 +271,7 @@
     return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
 }
 
-// Centering
+// 置中
 - (void) centerHorizontallyInSuperview
 {
     if (!self.superview) return;   
@@ -328,10 +328,10 @@
 {
     NSMutableArray *array = [NSMutableArray array];
     
-    // X position
+    // X位置
     [array addObject:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0f constant:aPoint.x]];
     
-    // Y position
+    // Y位置
     [array addObject:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0f constant:aPoint.y]];
     
     return array;    
@@ -343,20 +343,20 @@
     
 }
 
-// Set view location within superview
+// 設定視圖在父視圖裡的位置
 - (void) constrainPosition: (CGPoint)aPoint
 {
     if (!self.superview) return;
     [self.superview addConstraints: [self positionConstraints:aPoint]];
 }
 
-// Set view size
+// 設定視圖大小
 - (void) constrainSize:(CGSize)aSize
 {
     [self addConstraints:[self sizeConstraints:aSize]];
 }
 
-// Set view aspect ratio
+// 設定長寬比例
 - (void) constrainAspectRatio: (CGFloat) aspectRatio
 {
     [self addConstraint:[self aspectConstraint:aspectRatio]];
@@ -365,11 +365,11 @@
 #pragma mark -
 #pragma mark Tryouts
 
-// This is a terrible solution for view distribution, but it shows how to create your own
-// view dictionaries on the fly. This method is on the way out.
+// 這是個非常糟糕的視圖分佈方案，但的確示範了如何動態建立你自己的
+// 視圖字典。這種作法將會逐漸被捨棄
 - (void) layoutItems: (NSArray *) viewArray usingInsets: (BOOL) useInsets horizontally: (BOOL) horizontally
 {
-    // All views in viewArray must be subviews
+    // 在viewArray裡的視圖都必須是子視圖
     for (UIView *view in viewArray)
     {
         if (![self.subviews containsObject:view])
@@ -379,7 +379,7 @@
         }
     }
     
-    // Must pass at least two views
+    // 至少要有兩個視圖
     if (viewArray.count < 2)
     {
         NSLog(@"Error: you must layout at least two items. Count is %d", viewArray.count);
@@ -410,14 +410,14 @@
     {
         NSString *viewName = [NSString stringWithFormat:@"view%0d", i];
 
-        // Create the constraint
+        // 建立約束規則
         [formatString appendFormat:@"[%@]", viewName];
         [viewDictionary setObject:view forKey:viewName];
         if (view != viewArray.lastObject)
             [formatString appendFormat:@"-(>=%f)-", xWidth];
         i++;
         
-        // Harden the view
+        // 固定視圖
         // [view setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         // [view setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     }
@@ -426,7 +426,7 @@
     
     NSLog(@"FormatString: %@", formatString);
     
-    // create constraints
+    // 建立約束規則
     NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:formatString options:0 metrics:nil views:viewDictionary];
     
     [self addConstraints:constraints];
