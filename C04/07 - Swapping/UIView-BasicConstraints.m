@@ -106,7 +106,7 @@
 #pragma mark -
 #pragma mark Managing Constraints
 
-// 這會忽略任何優先順序，只在 y (R) mx + b 尋找
+// 這會忽略任何優先順序，只在 y (R) mx + b 裡尋找
 - (BOOL) constraint: (NSLayoutConstraint *) constraint1 matches: (NSLayoutConstraint *) constraint2
 {
     if (constraint1.firstItem != constraint2.firstItem) return NO;
