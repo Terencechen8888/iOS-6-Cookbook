@@ -17,7 +17,7 @@
     return self;
 }
 
-// Only works on-device. Invalid in simulator.
+// 只能用於實體裝置上，模擬器不行
 - (void) buy
 {
     NSString *address = dict[@"address"];
@@ -39,17 +39,17 @@
     }
     else
     {
-        // Center image view on left
+        // 置中圖像視圖於左邊
         CENTER_VIEW_V(self.view, imageView);
 
-        // Lay out remaining views
+        // 擺放其餘視圖
         CONSTRAIN(self.view, imageView, @"H:|-[imageView]");
         CONSTRAIN(self.view, titleLabel, @"H:[titleLabel]-15-|");
         CONSTRAIN(self.view, artistLabel, @"H:[artistLabel]-15-|");
         CONSTRAIN(self.view, button, @"H:[button]-15-|");
         CONSTRAIN_VIEWS(self.view, @"V:|-(>=0)-[titleLabel(>=0)]-[artistLabel]-15-[button]-|", bindings);
 
-        // Make sure titleLabel doesn't overlap
+        // 確保titleLabel不會重疊
         CONSTRAIN_VIEWS(self.view, @"H:[imageView]-(>=0)-[titleLabel]", bindings);
     }
 }
@@ -99,7 +99,7 @@
         PREPCONSTRAINTS(view);
     }
     
-    // Set aspect ratio for image view
+    // 設定圖像視圖的長寬比例
     [imageView addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f]];
     
     newOrientation = UIDeviceOrientationUnknown;

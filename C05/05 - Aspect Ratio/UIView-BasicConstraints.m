@@ -9,7 +9,7 @@
 
 @implementation UIView (BasicConstraints)
 
-// For debugging
+// 除錯用
 - (NSString *) nameForLayoutAttribute: (NSLayoutAttribute) anAttribute
 {
     switch (anAttribute)
@@ -89,7 +89,7 @@
     printf("\n");
 }
 
-// Centering
+// 置中
 - (void) centerHorizontallyInSuperview
 {
     if (!self.superview) return;
@@ -105,7 +105,7 @@
 }
 
 
-// Forcing into the superview bounds
+// 強制須位於父視圖範圍內
 - (void) constrainWithinSuperviewBounds
 {
     if (!self.superview) return;

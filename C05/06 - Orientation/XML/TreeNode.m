@@ -6,7 +6,7 @@
 
 #import "TreeNode.h"
 
-// String stripper utility macro
+// 字串修整巨集
 #define STRIP(X)	[X stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
 
 @implementation TreeNode
@@ -30,7 +30,7 @@
 }
 
 #pragma mark TreeNode data recovery routines
-// Return an array of child keys. No recursion
+// 回傳含有子鍵的陣列，不遞迴
 - (NSArray *) keys
 {
 	NSMutableArray *results = [NSMutableArray array];
@@ -38,7 +38,7 @@
 	return results;
 }
 
-// Return an array of child keys with depth-first recursion.
+// 回傳子鍵陣列，使用深度優先的遞迴
 - (NSArray *) allKeys
 {
 	NSMutableArray *results = [NSMutableArray array];
@@ -58,19 +58,19 @@
 	return array;
 }
 
-// Return a sorted, uniq array of child keys. No recursion
+// 回傳排序後的子鍵陣列（不重複），不遞迴
 - (NSArray *) uniqKeys
 {
 	return [self uniqArray:[self keys]];
 }
 
-// Return a sorted, uniq array of child keys. With depth-first recursion
+// 回傳排序後的子鍵陣列（不重複），使用深度優先的遞迴
 - (NSArray *) uniqAllKeys
 {
 	return [self uniqArray:[self allKeys]];
 }
 
-// Return an array of child leaves. No recursion
+// 回傳子樹葉陣列，不遞迴
 - (NSArray *) leaves
 {
 	NSMutableArray *results = [NSMutableArray array];
@@ -80,7 +80,7 @@
 	return results;
 }
 
-// Return an array of child leaves with depth-first recursion.
+// 回傳子樹葉陣列，使用深度優先的遞迴
 - (NSArray *) allLeaves
 {
 	NSMutableArray *results = [NSMutableArray array];
@@ -95,7 +95,7 @@
 
 #pragma mark TreeNode search and retrieve routines
 
-// Return the first child that matches the key, searching recursively breadth first
+// 回傳符合鍵的第一個子節點，寬度優先遞迴式搜尋
 - (TreeNode *) nodeForKey: (NSString *) aKey
 {
 	TreeNode *result = nil;
@@ -114,14 +114,14 @@
 	return result;
 }
 
-// Return the first leaf whose key is a match, searching recursively breadth first
+// 回傳符合鍵的第一個樹葉節點，寬度優先遞迴式搜尋
 - (NSString *) leafForKey: (NSString *) aKey
 {
 	TreeNode *node = [self nodeForKey:aKey];
 	return node.leafvalue;
 }
 
-// Return all children that match the key, including recursive depth first search.
+// 回傳符合鍵的所有子節點，深度優先遞迴式搜尋
 - (NSMutableArray *) nodesForKey: (NSString *) aKey
 {
 	NSMutableArray *result = [NSMutableArray array];
@@ -133,7 +133,7 @@
 	return result;
 }
 
-// Return all leaves that match the key, including recursive depth first search.
+// 回傳符合鍵的所有樹葉節點，深度優先遞迴式搜尋
 - (NSMutableArray *) leavesForKey: (NSString *) aKey
 {
 	NSMutableArray *result = [NSMutableArray array];
@@ -143,7 +143,7 @@
 	return result;
 }
 
-// Follow a key path that matches each first found branch, returning object
+// 分支時以第一個符合的為準，順著鍵路徑，回傳物件
 - (TreeNode *) nodeForKeys: (NSArray *) keys
 {
 	if (keys.count == 0) return self;
@@ -160,7 +160,7 @@
 	return nil;
 }
 
-// Follow a key path that matches each first found branch, returning leaf
+// 分支時以第一個符合的為準，順著鍵路徑，回傳樹葉節點
 - (NSString *) leafForKeys: (NSArray *) keys
 {
 	TreeNode *node = [self nodeForKeys:keys];
@@ -168,7 +168,7 @@
 }
 
 #pragma mark output utilities
-// Print out the tree
+// 印出整棵樹
 - (void) dumpAtIndent: (int) indent into:(NSMutableString *) outstring
 {
 	for (int i = 0; i < indent; i++) [outstring appendString:@"--"];
@@ -188,7 +188,7 @@
 }
 
 #pragma mark conversion utilities
-// When you're sure you're the parent of all leaves, transform to a dictionary
+// 若你確定你是所有樹葉的父節點，轉換成字典
 - (NSMutableDictionary *) dictionaryForChildren
 {
 	NSMutableDictionary *results = [NSMutableDictionary dictionary];
@@ -200,14 +200,14 @@
 }
 
 #pragma mark invocation forwarding
-// Invocation Forwarding lets node act like array
+// 轉送訊息（Invocation Forwarding），讓節點像是陣列
 - (id)forwardingTargetForSelector:(SEL)sel 
 { 
 	if ([self.children respondsToSelector:sel]) return self.children; 
 	return nil;
 }
 
-// Extend selector compliance
+// 擴充選擇子，符合陣列的要求
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
 	if ( [super respondsToSelector:aSelector] )	return YES;
@@ -215,7 +215,7 @@
 	return NO;
 }
 
-// Allow posing as NSArray class for children
+// 允許子節點佯裝成NSArray的形式
 - (BOOL)isKindOfClass:(Class)aClass
 {
 	if (aClass == [TreeNode class]) return YES;
