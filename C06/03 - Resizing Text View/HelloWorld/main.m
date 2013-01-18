@@ -42,7 +42,7 @@
     if (currentVerticalConstraints)
         [self.view removeConstraints:currentVerticalConstraints];
     
-	// Retrieve the keyboard bounds via the notification userInfo dictionary
+	// 透過通知的userInfo字典，取得鍵盤bounds
 	CGRect kbounds;
 	[(NSValue *)[notification.userInfo objectForKey:@"UIKeyboardBoundsUserInfoKey"] getValue:&kbounds];
     [self adjustToBottomInset:kbounds.size.height];
@@ -67,7 +67,7 @@
 	[self.view addSubviewAndConstrainToBounds:textView];
     [textView fitToWidthWithInset:0.0f];
     
-    // Set up initial full-height constraint
+    // 一開始，設定完整高度的約束規則
     [self adjustToBottomInset:0.0f];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];

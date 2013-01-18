@@ -21,14 +21,14 @@
 
 @implementation KeyInputToolbar
 
-// Is there text available that can be deleted
+// 有文字可以被刪除嗎？
 - (BOOL) hasText
 {
 	if (!string || !string.length) return NO;
 	return YES;
 }
 
-// Reload the toolbar with the string
+// 重新載入工具列，更新字串
 - (void) update
 {
 	NSMutableArray *theItems = [NSMutableArray array];
@@ -39,7 +39,7 @@
 	self.items = theItems;	
 }
 
-// Insert new text into the string
+// 插入新字串
 - (void)insertText:(NSString *)text
 {
 	if (!string) string = [NSMutableString string];
@@ -47,10 +47,10 @@
 	[self update];
 }
 
-// Delete one character
+// 刪除一個字元
 - (void)deleteBackward
 {
-	// Super caution, even if hasText reports YES
+	// 請特別小心，即使hasText回傳YES
 	if (!string) 
 	{
 		string = [NSMutableString string];
@@ -60,12 +60,12 @@
 	if (!string.length) 
 		return;
 	
-	// Remove a character
+	// 刪除一個字元
 	[string deleteCharactersInRange:NSMakeRange(string.length - 1, 1)];
 	[self update];
 }
 
-// When becoming first responder, send out a notification to that effect
+// 成為第一回應者時，送出相對應的通知
 - (BOOL) becomeFirstResponder
 {
     BOOL result = [super becomeFirstResponder];
@@ -79,7 +79,8 @@
 	return YES; 
 }
 
-// Do not use this in App Store code, kids. Allows you to force Hardware keyboard only interaction
+// 孩子，千萬別在要提交給App Store的程式碼裡使用底下的方法
+// 強迫只使用實體鍵盤
 /* - (void) disableOnscreenKeyboard
  {
  void *gs = dlopen("/System/Library/PrivateFrameworks/GraphicsServices.framework/GraphicsServices", RTLD_LAZY);
@@ -91,7 +92,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
 {
-	// [self disableOnscreenKeyboard]; // App Store unsafe
+	// [self disableOnscreenKeyboard]; // 不符合App Store的規定
 	[self becomeFirstResponder];
 }	
 @end
@@ -115,7 +116,7 @@
     self.view.backgroundColor = [UIColor whiteColor];    
     self.view.frame = [[UIScreen mainScreen] applicationFrame];
     
-    // Create the custom view
+    // 建立自訂視圖
 	kit = [[KeyInputToolbar alloc] initWithFrame:CGRectZero];
 	[self.view addSubview:kit];
     
@@ -124,8 +125,8 @@
     CONSTRAIN(kit, @"V:|-60-[kit(44.0)]");
      kit.userInteractionEnabled = YES;
 
-    // Show a "Done" button on iPhone-like interfaces when
-    // the custom view becomes first responder
+    // 當自訂視圖成為第一回應者時
+    // 在類iPhone介面上顯示Done完成按鈕
     [[NSNotificationCenter defaultCenter] addObserverForName:@"KeyInputToolbarDidBecomeFirstResponder" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
         if (!IS_IPAD)
             self.navigationItem.rightBarButtonItem = BARBUTTON(@"Done", @selector(done:));

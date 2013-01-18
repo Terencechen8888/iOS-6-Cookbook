@@ -28,17 +28,17 @@
 
 - (void) viewDidLoad
 {
-    // Create a text field by hand
+    // 手動建立文字輸入欄位
 	tf = [[UITextField alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 97.0f, 31.0f)];
     tf.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:tf];
     
-    // Place the text field centered below the other fields
+    // 置中並放在其他欄位之下
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[leftLabel]-15-[tf]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(leftLabel, tf)]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tf attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
   
-	// Update all text fields, including those defined in interface builder,
-	// to set the delegate, return key type, and several other useful traits
+	// 更新所有文字輸入欄位，包括定義在IB裡的，
+	// 設定委派、returnKeyType、以及其他有用的屬性
 	for (UIView *view in self.view.subviews)
 	{
 		if ([view isKindOfClass:[UITextField class]])

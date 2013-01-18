@@ -44,16 +44,16 @@
 @end
 
 @implementation ColorView
-// UITextInput protocol
+// UITextInput協定骨架
 - (BOOL) hasText {return NO;}
 - (void) insertText:(NSString *)text {}
 - (void) deleteBackward {}
 
-// First responder support
+// 支援第一回應者
 - (BOOL) canBecomeFirstResponder {return YES;}
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {[self becomeFirstResponder];}
 
-// Initialize with user interaction allowed
+// 初始化，允許與使用者互動
 - (id) initWithFrame:(CGRect)aFrame
 {
 	if (!(self = [super initWithFrame:aFrame])) return self;
@@ -78,7 +78,7 @@
     [[UIDevice currentDevice] playInputClick];
 }
 
-// Color change options
+// 顏色更新
 - (void) light: (id) sender {
 	[self updateColor:[COOKBOOK_PURPLE_COLOR colorWithAlphaComponent:0.33f]];}
 - (void) medium: (id) sender {
@@ -86,7 +86,7 @@
 - (void) dark: (id) sender {
 	[self updateColor:COOKBOOK_PURPLE_COLOR];}
 
-// Resign first responder on Done
+// 按下Done按鈕，放棄第一回應者的狀態
 - (void) done: (id) sender
 {
 	[[UIView currentResponder] resignFirstResponder];

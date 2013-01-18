@@ -67,7 +67,7 @@
               string, [responderView class]);
 }
 
-// Perform the two insertions
+// 插入字串，有兩個
 - (void) hello: (id) sender {[self insertString:@"Hello "];}
 - (void) world: (id) sender {[self insertString:@"World "];}
 

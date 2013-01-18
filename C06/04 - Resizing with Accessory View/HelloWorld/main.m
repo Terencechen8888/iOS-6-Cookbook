@@ -66,7 +66,7 @@
 
 - (void) updateTextViewBounds: (NSNotification *) notification
 {
-	if (![textView isFirstResponder])	 // no keyboard
+	if (![textView isFirstResponder])	 // 無鍵盤
 	{
         [self adjustToBottomInset:0.0f];
         return;
@@ -91,7 +91,7 @@
 	[self.view addSubviewAndConstrainToBounds:textView];
     [textView fitToWidthWithInset:0.0f];
     
-    // Set up initial full-height constraint
+    // 一開始，設定完整高度的約束規則
     [self adjustToBottomInset:0.0f];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTextViewBounds:) name:UIKeyboardDidChangeFrameNotification object:nil];   

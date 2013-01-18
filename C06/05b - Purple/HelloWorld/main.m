@@ -18,7 +18,7 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
 
-    // Create two standard text fields
+    // 建立兩個標準的文字輸入欄位
     UITextField *textField1 = [[UITextField alloc]
                                initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 30.0f)];
     textField1.center = CGPointMake(self.view.frame.size.width / 2.0f, 30.0f);
@@ -31,11 +31,11 @@
     textField2.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview: textField2];
     
-    // Create a purple view to be used as the input view
+    // 建立紫色視圖，作為inputView
     UIView *purpleView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 120.0f)];
     purpleView.backgroundColor = COOKBOOK_PURPLE_COLOR;
     
-    // Assign the input view
+    // 指定輸入視圖
     textField2.inputView = purpleView;
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
