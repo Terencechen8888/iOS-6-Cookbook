@@ -48,7 +48,7 @@
 		[cs addCharactersInString:@"+-"];
 	
 	
-	// legal characters check
+	// 檢查字元是否合法
     NSString *filtered = [[string componentsSeparatedByCharactersInSet:[cs invertedSet]] componentsJoinedByString:@""];
     BOOL basicTest = [string isEqualToString:filtered];
     
@@ -70,7 +70,7 @@
     
 	self.navigationController.navigationBar.tintColor = COOKBOOK_PURPLE_COLOR;
     
-    // Create a text field by hand
+    // 建立文字輸入欄位
 	textField = [[UITextField alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 30.0f)];
 	textField.placeholder = @"Enter Text";
     [self.view addSubview:textField];

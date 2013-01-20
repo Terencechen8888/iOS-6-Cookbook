@@ -33,19 +33,19 @@
 
 @implementation TestBedViewController
 
-// Store data out to file
+// 將目前文字內容儲存到檔案裡
 - (void) archiveData
 {
 	[textView.text writeToFile:DATAPATH atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
-// Update the undo and redo button states
+// 更新復原undo與重做redo按鈕的狀態
 - (void)textViewDidChange:(UITextView *)textView
 {
 	[self loadAccessoryView];
 }
 
-// Choose which items to enable and disable on the toolbar
+// 決定工具列上的按鈕，哪個該啟用、哪個該禁用
 - (void) loadAccessoryView
 {
 	NSMutableArray *items = [NSMutableArray array];
@@ -62,11 +62,11 @@
     redoItem.enabled = canRedo;
     [items addObject:redoItem];
     
-    // Add select all
+    // 加入「選擇全部」
     [items addObject:SYSBARBUTTON(UIBarButtonSystemItemFlexibleSpace, nil)];
     [items addObject:BARBUTTON_TARGET(textView, @"Sel", @selector(selectAll:))];
 
-    // Add style buttons
+    // 加入粗體斜體底線的按鈕
     [items addObject:SYSBARBUTTON(UIBarButtonSystemItemFlexibleSpace, nil)];
     [items addObject:BARBUTTON_TARGET(textView, @"B", @selector(toggleBoldface:))];
     [items addObject:BARBUTTON_TARGET(textView, @"I", @selector(toggleItalics:))];
@@ -78,7 +78,7 @@
 	toolbar.items = items;	
 }
 
-// Returns a plain accessory view
+// 回傳沒東西的輔助視圖
 - (UIToolbar *) accessoryView
 {
 	toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
@@ -86,11 +86,11 @@
 	return toolbar;
 }
 
-// Respond to the two accessory buttons
+// 回應兩個輔助按鈕
 - (void) leaveKeyboardMode { [textView resignFirstResponder];	[self archiveData];}
 - (void) clearText { [textView setText:@""]; }
 
-// Check for use of hardware keyboard
+// 檢查是否有實體鍵盤
 - (BOOL) isUsingHardwareKeyboard: (CGRect) kbounds
 {
 	CGFloat startPoint = toolbar.superview.frame.origin.y;
@@ -100,7 +100,7 @@
     return usingHardwareKeyboard;
 }
 
-// Update TextView Height
+// 更新文字視圖的高度
 - (void) adjustToBottomInset: (CGFloat) offset
 {
     if (currentVerticalConstraints)
@@ -110,10 +110,10 @@
     [self.view addConstraints:currentVerticalConstraints];
 }
 
-// Respond to Keyboard Frame Changes
+// 回應鍵盤frame的變更
 - (void) updateTextViewBounds: (NSNotification *) notification
 {
-	if (![textView isFirstResponder])	 // no keyboard
+	if (![textView isFirstResponder])	 // 無鍵盤
 	{
         [self adjustToBottomInset:0.0f];
         return;
@@ -132,30 +132,30 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Create text view
+    // 建立文字視圖
     textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     textView.translatesAutoresizingMaskIntoConstraints = NO;
     textView.spellCheckingType = UITextSpellCheckingTypeNo;
 
-    // Set its basic properties
+    // 設定基本屬性
 	textView.font = [UIFont fontWithName:@"Georgia" size:(IS_IPAD) ? 24.0f : 14.0f];
     textView.inputAccessoryView = [self accessoryView];
     textView.allowsEditingTextAttributes = YES;
     textView.delegate = self;
     
-    // Add and constrain the view
+    // 加入視圖，並設定約束規則
     [self.view addSubview:textView];
     CONSTRAIN(textView, @"H:|[textView(>=0)]|");
     [self adjustToBottomInset:0.0f];
 
-    // Load any existing string
+    // 載入已存在的字串
     if ([[NSFileManager defaultManager] fileExistsAtPath:DATAPATH])
     {
         NSString *string = [NSString stringWithContentsOfFile:DATAPATH encoding:NSUTF8StringEncoding error:nil];
 		textView.text = string;
     }
     
-    // Subscribe to keyboard changes
+    // 註冊觀察鍵盤狀態的變化
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTextViewBounds:) name:UIKeyboardDidChangeFrameNotification object:nil];   
 }
 @end

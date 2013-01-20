@@ -47,18 +47,18 @@
 	
     switch (segmentedControl.selectedSegmentIndex)
     {
-        case 0: // Alpha only
+        case 0: // 只有字母
             [cs addCharactersInString:ALPHA];
             break;
-        case 1: // Integers
+        case 1: // 整數
 			[cs formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
             break;
-        case 2: // Decimals
+        case 2: // 有小數點的十進位數字
 			[cs formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
             if ([aTextField.text rangeOfString:@"."].location == NSNotFound)
 				[cs addCharactersInString:@"."];
             break;
-        case 3: // Alphanumeric
+        case 3: // 字母與數字
             [cs addCharactersInString:ALPHA];
 			[cs formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
             break;
@@ -89,7 +89,7 @@
     
 	self.navigationController.navigationBar.tintColor = COOKBOOK_PURPLE_COLOR;
     
-    // Create a text field by hand
+    // 建立文字輸入欄位
 	textField = [[LimitedTextField alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 30.0f)];
 	textField.placeholder = @"Enter Text";
     [self.view addSubview:textField];
@@ -104,7 +104,7 @@
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     
-    // Add segmented control with entry options
+    // 加入含有輸入選項的分段控制項
     segmentedControl = [[UISegmentedControl alloc] initWithItems:[@"ABC 123 2.3 A2C" componentsSeparatedByString:@" "]];
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;
