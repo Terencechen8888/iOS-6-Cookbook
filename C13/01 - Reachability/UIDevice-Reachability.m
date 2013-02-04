@@ -24,7 +24,7 @@ SCNetworkReachabilityRef reachability;
 
 #pragma mark Class IP and Host Utilities 
 
-// This IP Utilities are mostly inspired by or derived from Apple code. Thank you Apple.
+// 跟IP相關的輔助方法，大都從Apple的範例程式碼修改而來，謝謝你，Apple。
 
 + (NSString *) stringFromAddress: (const struct sockaddr *) address
 {
@@ -84,7 +84,7 @@ SCNetworkReachabilityRef reachability;
 
 - (NSString *) hostname
 {
-	char baseHostName[256]; // Thanks, Gunnar Larisch
+	char baseHostName[256]; // 謝謝，Gunnar Larisch
 	int success = gethostname(baseHostName, 255);
 	if (success != 0) return nil;
 	baseHostName[255] = '\0';
@@ -113,11 +113,11 @@ SCNetworkReachabilityRef reachability;
 	return [NSString stringWithCString:inet_ntoa(*list[0]) encoding:NSUTF8StringEncoding];
 }
 
-// Matt Brown's get WiFi IP addy solution
-// Author gave permission to use in Cookbook under cookbook license
+// Matt Brown取得WiFi IP的解決方案
+// 感謝，讓我可用於這本著作，在此條款之下，
 // http://mattbsoftware.blogspot.com/2009/04/how-to-get-ip-address-of-iphone-os-v221.html
 
-// iPhone hotspot updates courtesy of Johannes Rudolph
+// 更新iPhone熱點的程式碼，感謝Johannes Rudolph
 
 - (NSString *) localWiFiIPAddress
 {
@@ -130,13 +130,13 @@ SCNetworkReachabilityRef reachability;
 		cursor = addrs;
 		while (cursor != NULL) {
             
-            // the second test keeps from picking up the loopback address
+            // 第二項檢查，避免拿到loopback的位址
 			if (cursor->ifa_addr->sa_family == AF_INET && (cursor->ifa_flags & IFF_LOOPBACK) == 0) 
 			{
 				NSString *name = [NSString stringWithUTF8String:cursor->ifa_name];
 
                 /*
-                 // Uncomment for debug
+                 // 除錯用
                  NSLog(@"Interface name: %@, inet: %d, loopback: %d, address: %@", 
                  name, 
                  cursor->ifa_addr->sa_family == AF_INET, 
@@ -144,7 +144,7 @@ SCNetworkReachabilityRef reachability;
                  [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)cursor->ifa_addr)->sin_addr)]);
                  */                
 
-                // Wi-Fi adapter or iPhone Personal Hotspot bridge adapter
+                // Wi-Fi配接器，或iPhone個人熱點橋接器
 				if ([name isEqualToString:@"en0"] || 
                     [name isEqualToString:@"bridge0"])
 					return [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)cursor->ifa_addr)->sin_addr)];
@@ -170,12 +170,12 @@ SCNetworkReachabilityRef reachability;
 		cursor = addrs;
 		while (cursor != NULL) {
             
-			// the second test keeps from picking up the loopback address
+			// 第二項檢查，避免拿到loopback的位址
 			if (cursor->ifa_addr->sa_family == AF_INET && (cursor->ifa_flags & IFF_LOOPBACK) == 0) 
 			{
 				NSString *name = [NSString stringWithUTF8String:cursor->ifa_name];
                 
-                // Wi-Fi adapter or iPhone Personal Hotspot bridge adapter
+                // Wi-Fi配接器，或iPhone個人熱點橋接器
 				if ([name hasPrefix:@"en"] || [name hasPrefix:@"bridge"])
 					[array addObject:[NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)cursor->ifa_addr)->sin_addr)]];
 			}
@@ -244,7 +244,7 @@ SCNetworkReachabilityRef reachability;
 		ipAddress.sin_family = AF_INET;
 		ipAddress.sin_addr.s_addr = htonl(ignoresAdHocWiFi ? INADDR_ANY : IN_LINKLOCALNETNUM);
 
-		/* Can also create zero addy
+		/* 若需要的話，也可建立零位址
 		 struct sockaddr_in zeroAddress;
 		 bzero(&zeroAddress, sizeof(zeroAddress));
 		 zeroAddress.sin_len = sizeof(zeroAddress);
@@ -254,7 +254,7 @@ SCNetworkReachabilityRef reachability;
 		CFRetain(reachability);
 	}
 	
-	// Recover reachability flags
+	// 取得可達性的旗標
 	BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(reachability, &connectionFlags);
 	if (!didRetrieveFlags) printf("Error. Could not recover network reachability flags\n");
 }
@@ -269,10 +269,10 @@ SCNetworkReachabilityRef reachability;
     return (isReachable && !needsConnection) ? YES : NO;
 }
 
-// Thanks Johannes Rudolph
+// 感謝Johannes Rudolph
 - (BOOL) activePersonalHotspot
 {
-    // Personal hotspot is fixed to 172.20.10
+    // 個人熱點固定為172.20.10
     NSString* localWifiAddress = [self localWiFiIPAddress];
     return (localWifiAddress != nil && [localWifiAddress hasPrefix:@"172.20.10"]);
 }

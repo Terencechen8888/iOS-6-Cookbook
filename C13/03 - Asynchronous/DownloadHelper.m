@@ -89,7 +89,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aResponse
 {
-	// Check for bad connection
+	// 檢查不正常的連線
 	_expectedLength = [aResponse expectedContentLength];
 	if (_expectedLength == NSURLResponseUnknownLength)
 	{
@@ -120,7 +120,7 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	// finished downloading the data, cleaning up
+	// 資料下載結束，清理收尾
 	[outputStream close];
 	[urlconnection unscheduleFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 	[self cleanup];

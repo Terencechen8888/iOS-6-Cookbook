@@ -27,7 +27,7 @@
     textView.text = newString;
 }
 
-// Run basic reachability tests
+// 執行基本的可達性檢測
 - (void) runTests
 {
     UIDevice *device = [UIDevice currentDevice];

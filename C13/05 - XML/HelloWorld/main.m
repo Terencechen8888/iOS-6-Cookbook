@@ -20,19 +20,19 @@
     TreeNode *root;
 }
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
 	return 1;
 }
 
-// Rows per section
+// 某段裡列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     return items.count;
 }
 
-// Return a cell for the index path
+// 回傳索引路徑指定的儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -55,7 +55,7 @@
     [self.tableView reloadData];
 }
 
-// Set up table
+// 設定表格
 - (void) loadView
 {
     [super loadView];

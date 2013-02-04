@@ -8,20 +8,20 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "Utility.h"
 
-// Large Movie (35 MB)
+// 長影片 (35 MB)
 #define LARGE_MOVIE @"http://www.archive.org/download/BettyBoopCartoons/Betty_Boop_More_Pep_1936_512kb.mp4"
 
-// Short movie (3 MB)
+// 短影片 (3 MB)
 #define SMALL_MOVIE @"http://www.archive.org/download/Drive-inSaveFreeTv/Drive-in--SaveFreeTv_512kb.mp4"
 
-// Fake address
+// 假網址
 #define FAKE_MOVIE @"http://www.idontbelievethisisavalidurlforthisexample.com"
 
-// Current URL to test
+// 目前被測試的網址
 #define MOVIE_PATH  LARGE_MOVIE
 #define MOVIE_URL   [NSURL URLWithString:MOVIE_PATH]
 
-// Location to store downloaded item
+// 下載項目的儲存位置
 #define DEST_PATH	[NSHomeDirectory() stringByAppendingString:@"/Documents/Movie.mp4"]
 #define DEST_URL    [NSURL fileURLWithPath:DEST_PATH]
 
@@ -62,7 +62,7 @@
     [aiv startAnimating];
     self.navigationItem.titleView = aiv;
 
-    // Remove any existing data
+    // 移除先前的資料
     if ([[NSFileManager defaultManager] fileExistsAtPath:DEST_PATH])
     {
         NSError *error;

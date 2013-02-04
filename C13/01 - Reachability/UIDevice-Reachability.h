@@ -21,7 +21,7 @@
 + (NSString *) addressFromData:(NSData *) addressData;
 + (NSString *) portFromData:(NSData *) addressData;
 
-// Retrieve connectivity info
+// 取得連線狀態資訊
 - (NSString *) hostname;
 - (NSString *) getIPAddressForHost: (NSString *) theHost;
 - (NSString *) localIPAddress;
@@ -29,7 +29,7 @@
 - (NSArray *) localWiFiIPAddresses;
 - (NSString *) whatismyipdotcom;
 
-// Availability tests
+// 可用性檢測
 - (BOOL) hostAvailable: (NSString *) theHost;
 - (BOOL) networkAvailable;
 - (BOOL) activeWLAN;
