@@ -29,7 +29,7 @@
 	return controller;
 }
 
-// Called upon going into portrait mode, hiding the normal table view
+// 變成直擺時會被呼叫，隱藏表格視圖
 - (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)aPopoverController
 {
     barButtonItem.title = aViewController.title;
@@ -37,14 +37,15 @@
     self.myPopoverController = aPopoverController;
 }
 
-// Called upon going into landscape mode.
+// 變成橫擺時會被呼叫
 - (void)splitViewController: (UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
 	self.navigationItem.leftBarButtonItem = nil;
     self.myPopoverController = nil;
 }
 
-// Use this to avoid the pop-over hiding in portrait. When omitted, you get the default behavior.
+// 啟用這個方法便能在直擺時避免懸浮元件
+// 若無此方法，便會得到預設行為
 /* - (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
 {
     return NO;
@@ -108,16 +109,16 @@
 @implementation TestBedAppDelegate
 - (UISplitViewController *) splitviewController
 {
-	// Create the navigation-run root view
+	// 建立包在導覽控制器裡的主要（根）視圖
 	ColorTableViewController *rootVC = [[ColorTableViewController alloc] init];
     rootVC.title = @"Colors";
 	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:rootVC];
 	
-	// Create the navigation-run detail view
+	// 建立包在導覽控制器裡的細節視圖
 	DetailViewController *detailVC = [DetailViewController controller];
 	UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:detailVC];
 	
-	// Add both to the split view controller
+	// 將兩者加入分割視圖控制器
 	UISplitViewController *svc = [[UISplitViewController alloc] init];
 	svc.viewControllers = @[rootNav, detailNav];
 	svc.delegate = detailVC;

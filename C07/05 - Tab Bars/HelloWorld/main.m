@@ -73,7 +73,7 @@
 @implementation TestBedAppDelegate
 - (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
 {
-    // Collect the view controller order
+    // 收集視圖控制器的順序
     NSMutableArray *titles = [NSMutableArray array];
     for (UIViewController *vc in viewControllers)
         [titles addObject:vc.title];
@@ -84,7 +84,7 @@
 
 - (void)tabBarController:(UITabBarController *)controller didSelectViewController:(UIViewController *)viewController
 {
-    // Store the selected tab
+    // 記錄被點選的標簽
     NSNumber *tabNumber = [NSNumber numberWithInt:[controller selectedIndex]];
     [[NSUserDefaults standardUserDefaults]
      setObject:tabNumber forKey:@"selectedTab"];
@@ -96,7 +96,7 @@
     [application setStatusBarHidden:YES];
     window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    // Globally use a black tint for nav bars
+    // 導覽列皆使用黑色
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     
     NSMutableArray *controllers = [NSMutableArray array];
@@ -105,7 +105,7 @@
     
     if (titles)
     {
-        // titles retrieved from user defaults
+        // 從使用者偏好預設系統抓出標題
         for (NSString *theTitle in titles)
         {
             BrightnessController *controller =
@@ -118,7 +118,7 @@
     }
     else
     {
-        // generate all new controllers
+        // 建立所有新的控制器
         for (int i = 0; i <= 10; i++)
         {
             BrightnessController *controller =
@@ -134,7 +134,7 @@
     tabBarController.customizableViewControllers = controllers;
     tabBarController.delegate = self;
     
-    // Restore any previously selected tab
+    // 回復先前選擇的標簽
     NSNumber *tabNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedTab"];
     if (tabNumber)
         tabBarController.selectedIndex = [tabNumber intValue];
