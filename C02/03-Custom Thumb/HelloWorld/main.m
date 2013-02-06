@@ -26,7 +26,7 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Set global UISlider appearance attributes
+    // 設定UISlider外觀屬性，全域設定
     [[UISlider appearance] setMinimumTrackTintColor:[UIColor blackColor]];
     [[UISlider appearance] setMaximumTrackTintColor:[UIColor grayColor]];
     

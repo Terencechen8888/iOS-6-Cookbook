@@ -85,7 +85,7 @@
     pageSlider.value = pageNumber.intValue;
 }
 
-// Hide the slider after the timer fires
+// 計時器觸發後隱藏滑桿
 - (void) hideSlider: (NSTimer *) aTimer
 {
     [UIView animateWithDuration:0.3f animations:^(void){
@@ -96,7 +96,7 @@
     hiderTimer = nil;
 }
 
-// Present the slider when tapped
+// 點擊時顯示滑桿
 - (void) handleTap: (UITapGestureRecognizer *) recognizer
 {
     [UIView animateWithDuration:0.3f animations:^(void){
@@ -137,11 +137,11 @@
     self.view.backgroundColor = [UIColor blackColor];
     RESIZABLE(self.view);
     
-    // Load colors and create first view controller
+    // 載入顏色，建立第一個視圖控制器
     NSString *pathname = [[NSBundle mainBundle]  pathForResource:@"crayons" ofType:@"txt" inDirectory:@"/"];
 	rawColors = [[NSString stringWithContentsOfFile:pathname encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByString:@"\n"];
     
-    // Establish a slider
+    // 建立滑桿
     pageSlider = [[UISlider alloc] initWithFrame:CGRectZero];
     [self.view addSubview:pageSlider];
     
@@ -151,7 +151,7 @@
     
     [pageSlider addTarget:self action:@selector(moveToPage:) forControlEvents:UIControlEventValueChanged];
     
-    pageSlider.alpha = 0.0f; // initially hidden
+    pageSlider.alpha = 0.0f; // 一開始隱藏
     pageSlider.minimumValue = 0.0f;
     pageSlider.maximumValue = (float)(rawColors.count - 1);
     pageSlider.continuous = YES;

@@ -27,7 +27,7 @@
 /*
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
-    // Slightly borked in iOS 6 beta
+    // 在iOS 6測試版時有點失常
     // return [self currentPage];
     return 0;
 }
@@ -43,7 +43,7 @@
 
 #pragma mark Page Handling
 
-// Update if you'd rather use some other decision style
+// 如果你想使用其他種寫法，請自行修改
 - (BOOL) useSideBySide: (UIInterfaceOrientation) orientation
 {
     BOOL isLandscape = UIInterfaceOrientationIsLandscape(orientation);
@@ -57,19 +57,19 @@
     }
 }
 
-// Store the new page and update the delgate
+// 更新目前頁面，設定偏好預設值，呼叫委派
 - (void) updatePageTo: (uint) newPageNumber
 {
     _pageNumber = newPageNumber;
     
-    // Update to Cloud?
+    // 上傳到雲端？
     [[NSUserDefaults standardUserDefaults] setInteger:_pageNumber forKey:DEFAULTS_BOOKPAGE];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     SAFE_PERFORM_WITH_ARG(_bookDelegate, @selector(bookControllerDidTurnToPage:), [NSNumber numberWithInt:_pageNumber]);
 }
 
-// Request controller from delegate
+// 向委派要求控制器
 - (UIViewController *) controllerAtPage: (int) aPageNumber
 {
     if (_bookDelegate &&
@@ -81,8 +81,7 @@
     }
     return nil;
 }
-
-// Update interface to the given page
+// 更新顯示頁面
 - (void) fetchControllersForPage: (uint) requestedPage orientation: (UIInterfaceOrientation) orientation
 {
     BOOL sideBySide = [self useSideBySide:orientation];
@@ -92,17 +91,17 @@
     uint leftPage = requestedPage;
     if (sideBySide && (leftPage % 2)) leftPage = floor(leftPage / 2) * 2;
     
-    // Only check against current page when count is appropriate
+    // 只有在數目正確時，才對目前頁面進行檢查
     if (currentCount && (currentCount == numberOfPagesNeeded))
     {
         if (_pageNumber == requestedPage) return;
         if (_pageNumber == leftPage) return;
     }
     
-    // Decide the prevailing direction by checking the new page against the old
+    // 比較新舊頁面，決定翻頁方向
     UIPageViewControllerNavigationDirection direction = (requestedPage > _pageNumber) ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     
-    // Update the controllers
+    // 更新控制器，絕對不能加入nil
     NSMutableArray *pageControllers = [NSMutableArray array];
     SAFE_ADD(pageControllers, [self controllerAtPage:leftPage]);    
     if (sideBySide)
@@ -112,10 +111,10 @@
     [self updatePageTo:leftPage];
 }
 
-// Entry point for external move request
+// 從外界而來的翻頁請求
 - (void) moveToPage: (uint) requestedPage
 {
-    // Thanks Dino Lupo
+    // 謝謝Dino Lupo
     [self fetchControllersForPage:requestedPage orientation:(UIInterfaceOrientation)self.interfaceOrientation];
 }
 
@@ -149,20 +148,21 @@
 }
 
 #pragma mark Class utility routines
-// Return a new book
+// 回傳新書本
 + (id) bookWithDelegate: (id) theDelegate style: (BookLayoutStyle) aStyle
 {
-    // Determine orientation
+    // 判斷裝置擺向
     UIPageViewControllerNavigationOrientation orientation = UIPageViewControllerNavigationOrientationHorizontal;
     if ((aStyle == BookLayoutStyleFlipBook) || (aStyle == BookLayoutStyleVerticalScroll))
         orientation = UIPageViewControllerNavigationOrientationVertical;
     
-    // Determine transitionStyle
+    // 判斷過場效果風格
     UIPageViewControllerTransitionStyle transitionStyle = UIPageViewControllerTransitionStylePageCurl;
     if ((aStyle == BookLayoutStyleHorizontalScroll) || (aStyle == BookLayoutStyleVerticalScroll))
         transitionStyle = UIPageViewControllerTransitionStyleScroll;
     
-    // Pass options as a dictionary. Keys are spine location (curl) and spacing (scroll)
+    // 以字典傳入選項，鍵為書脊位置（捲頁）
+    // 與控制器之間的分隔設定（捲動）
     BookController *bc = [[BookController alloc] initWithTransitionStyle:transitionStyle navigationOrientation:orientation options:nil];
     
     bc.layoutStyle = aStyle;

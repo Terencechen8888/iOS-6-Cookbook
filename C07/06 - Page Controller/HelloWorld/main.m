@@ -27,13 +27,13 @@
     return 10;
 }
 
-// Provide a view controller on demand for the given page number
+// 根據需求、根據頁面編號提供視圖控制器
 - (id) viewControllerForPage: (int) pageNumber
 {
     if ((pageNumber < 0) || (pageNumber > 9)) return nil;
     float targetWhite = 0.9f - (pageNumber / 10.0f);
     
-    // Establish a new controller
+    // 建立新控制器
     UIViewController *controller = [[UIViewController alloc] init];
     controller.view.backgroundColor = [UIColor whiteColor];
     RESIZABLE(controller.view);
@@ -42,32 +42,32 @@
     CGFloat destinationOffset = (IS_IPAD) ? 20.0f : 10.0f;
     CGRect fullRect = (CGRect){.size = [[UIScreen mainScreen] applicationFrame].size};
     
-    // Draw a shaded swatch
+    // 繪製有漸層的色票
     UIGraphicsBeginImageContext(fullRect.size);
 
-    // Border
+    // 邊框
     [[UIColor blackColor] set];
     CGContextFillRect(UIGraphicsGetCurrentContext(), fullRect);
     [[UIColor whiteColor] set];
     CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectInset(fullRect, 3.0f, 3.0f));
     
-    // Shadow underneath
+    // 下面的陰影
     [[UIColor colorWithWhite:0.0f alpha:0.35f] set];
     [[UIBezierPath bezierPathWithRoundedRect:CGRectOffset(CGRectInset(fullRect, 120.0f, 120.0f), destinationOffset, destinationOffset) cornerRadius:32.0f] fill];
     
-    // Swatch on top
+    // 上面的色票
     [destinationColor set];
     [[UIBezierPath bezierPathWithRoundedRect:CGRectInset(fullRect, 124.0f, 124.0f) cornerRadius:32.0f] fill];
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    // Add it as an image
+    // 加入圖像視圖
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     RESIZABLE(imageView);
     [controller.view addSubview:imageView];
     
-    // Add a label
+    // 加入標籤
     UILabel *textLabel = [[UILabel alloc] initWithFrame:(CGRect){.size = CGSizeMake(200.0f, 40.0f)}];
     textLabel.text = [NSString stringWithFormat:@"%0.0f%% White", 100 * targetWhite];
     textLabel.font = [UIFont fontWithName:@"Futura" size:30.0f];

@@ -6,13 +6,13 @@
 
 #import <UIKit/UIKit.h>
 
-// Used for storing the most recent book page used
+// 用來儲存最新近顯示的書本頁面
 #define DEFAULTS_BOOKPAGE   @"BookControllerMostRecentPage"
 
 typedef enum
 {
-    BookLayoutStyleBook, // side by side in landscape
-    BookLayoutStyleFlipBook, // side by side in portrait
+    BookLayoutStyleBook, // 裝置橫擺時，並排頁面
+    BookLayoutStyleFlipBook, // 裝置直擺時，並排頁面
     BookLayoutStyleHorizontalScroll,
     BookLayoutStyleVerticalScroll,
 } BookLayoutStyle;
@@ -20,7 +20,7 @@ typedef enum
 @protocol BookControllerDelegate <NSObject>
 - (id) viewControllerForPage: (int) pageNumber;
 @optional
-- (NSInteger) numberOfPages; // primarily for scrolling layouts
+- (NSInteger) numberOfPages; // 主要用途是為了捲動編排形式
 - (void) bookControllerDidTurnToPage: (NSNumber *) pageNumber;
 @end
 
