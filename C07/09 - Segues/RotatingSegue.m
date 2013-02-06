@@ -15,7 +15,7 @@
 @implementation RotatingSegue
 - (UIImage *)screenShot: (UIView *) aView
 {
-    // Arbitrarily masks to 40%. Use whatever level you like
+    // 任意調暗40%，請自行修改
     UIGraphicsBeginImageContext(hostView.frame.size);
 	[aView.layer renderInContext:UIGraphicsGetCurrentContext()];
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

@@ -12,7 +12,7 @@
 #define PREPCONSTRAINTS(VIEW) [VIEW setTranslatesAutoresizingMaskIntoConstraints:NO]
 
 @implementation FlipViewController
-// Dismiss the view controller
+// 解除視圖控制器
 - (void) done: (id) sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -26,7 +26,7 @@
         return;
     }
     
-    // Clean up the Child View Controller
+    // 清除子視圖控制器
     UIViewController *currentController = (UIViewController *)controllers[0];
     [currentController willMoveToParentViewController:nil];
     [currentController.view removeFromSuperview];
@@ -35,35 +35,35 @@
 
 - (void) flip: (id) sender
 {
-    // Please call only with two controllers;
+    // 僅能在兩個控制其實呼叫
     if (controllers.count < 2) return;
 
-    // Determine which item is front, which is back
+    // 判斷哪個在前面、哪個在後面
     UIViewController *front =  (UIViewController *)controllers[0];
     UIViewController *back =  (UIViewController *)controllers[1];
     
-    // Select the transition direction
+    // 選擇過場動畫的方向
     UIViewAnimationTransition transition = reversedOrder ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight;
     
-    // Hide the info button until after the flip
+    // 隱藏資訊按鈕，直到翻頁完成
     infoButton.alpha = 0.0f;
     
-    // Prepare the front for removal, the back for adding
+    // 準備移除前面的、準備加入後面的
     [front willMoveToParentViewController:nil];
     [self addChildViewController:back];
     
     back.view.frame = front.view.frame;
 
-    // Perform the transition
+    // 執行過場動畫
     [self transitionFromViewController: front toViewController:back duration:0.5f options: transition  animations:nil completion:^(BOOL done){
         
-        // Bring the Info button back into view
+        // 將資訊按鈕放回視圖裡
         [self.view bringSubviewToFront:infoButton];
         [UIView animateWithDuration:0.3f animations:^(){
             infoButton.alpha = 1.0f;
         }];
         
-        // Finish up transition
+        // 結束過場動畫
         [front removeFromParentViewController];
         [back didMoveToParentViewController:self];
         
@@ -92,10 +92,10 @@
     [self.view addSubview:front.view];
     [front didMoveToParentViewController:front];
     
-    // Check for presentation and for flippability
+    // 檢查是否顯示中，檢查可否翻頁
     BOOL isPresented = self.isBeingPresented;
     
-    // Clean up instance if re-use
+    // 若重複使用，清理物件實體
     if (navbar || infoButton)
     {
         [navbar removeFromSuperview];
@@ -103,7 +103,7 @@
         navbar = nil;
     }
 
-    // When presented, add a custom navigation bar
+    // 顯示中，加入客製導覽列
     if (isPresented)
     {
         navbar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
@@ -112,35 +112,35 @@
         [self.view addSubview:navbar];
     }
 
-    // Right button is done when VC is presented
+    // 若已經顯示控制器，右按鈕應為Done
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = isPresented ? SYSBARBUTTON(UIBarButtonSystemItemDone, @selector(done:)) : nil;
     
-    // Populate the navigation bar
+    // 填入導覽列的內容
     if (navbar)
         [navbar setItems:@[self.navigationItem] animated:NO];
     
-    // Size the child VC view(s)
+    // 設定子視圖控制器的視圖的大小
     CGFloat verticalOffset = (navbar != nil) ? 44.0f : 0.0f;
     CGRect destFrame = CGRectMake(0.0f, verticalOffset, self.view.frame.size.width, self.view.frame.size.height - verticalOffset);
     front.view.frame = destFrame;
     back.view.frame = destFrame;
 
-    // Set up info button
-    if (controllers.count < 2) return; // our work is done here
+    // 設定資訊按鈕
+    if (controllers.count < 2) return; // 至此，我們的工作完成了
     
-    // Create the "i" button
+    // 建立"i"按鈕
     infoButton = [UIButton buttonWithType:_prefersDarkInfoButton ? UIButtonTypeInfoDark : UIButtonTypeInfoLight];
     [infoButton addTarget:self action:@selector(flip:) forControlEvents:UIControlEventTouchUpInside];
     infoButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     
-    // Place "i" button at bottom right of view
+    // 將"i"置於視圖右下方
     CGSize frameSize = self.view.frame.size;
     infoButton.frame = CGRectMake(frameSize.width - 44.0f, frameSize.height - 44.0f, 44.0f, 44.0f);
     [self.view addSubview:infoButton];
 }
 
-// Sorry. No, really. Sorry.
+// 抱歉，不，我說真的，抱歉。
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     if (controllers.count < 2) return;
@@ -153,7 +153,7 @@
     self.view.backgroundColor = [UIColor blackColor];
 }
 
-// Return a newly initialized flip controller
+// 回傳新的初始化後的FlipViewController
 - (id) initWithFrontController: (UIViewController *) front andBackController: (UIViewController *) back
 {
     if (!(self = [super init])) return self;

@@ -27,7 +27,7 @@
 @end
 
 @implementation TestBedViewController
-// Informal delegate method
+// 自訂的非正式委派方法
 - (void) segueDidComplete
 {
     UIViewController *source = [childControllers objectAtIndex:vcIndex];
@@ -40,13 +40,13 @@
     pageControl.currentPage = vcIndex;
 }
 
-// Transition to new view using custom segue
+// 以客製的串場切換到新視圖
 - (void) switchToView: (int) newIndex goingForward: (BOOL) goesForward
 {
     if (vcIndex == newIndex) return;
     nextIndex = newIndex;
     
-    // Segue to the new controller
+    // 換到新控制器
     UIViewController *source = [childControllers objectAtIndex:vcIndex];
     UIViewController *destination = [childControllers objectAtIndex:newIndex];
     
@@ -61,14 +61,14 @@
     [segue perform];
 }
 
-// Go forward
+// 往前
 - (void) progress: (id) sender
 {
     int newIndex = ((vcIndex + 1) % childControllers.count);
     [self switchToView:newIndex goingForward:YES];
 }
 
-// Go backwards
+// 往後
 - (void) regress: (id) sender
 {
     int newIndex = vcIndex - 1;
@@ -76,20 +76,20 @@
     [self switchToView:newIndex goingForward:NO];
 }
 
-// Establish core interface
+// 建立核心介面
 - (void) viewDidLoad
 {
-    // Create a basic background.
+    // 建立基本的背景
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view.backgroundColor = [UIColor blackColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    // Create backsplash for animation support
+    // 建立背景圖，支援動畫效果
     backsplash = [[UIView alloc] initWithFrame:CGRectInset(self.view.frame, 50.0f, 50.0f)];
     backsplash.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:backsplash];
     
-    // Add a page view controller
+    // 加入頁面視圖控制器
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 40.0f)];
     pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     pageControl.currentPage = 0;
@@ -97,7 +97,7 @@
     pageControl.userInteractionEnabled = NO;
     [self.view addSubview:pageControl];
     
-    // Load child array from storyboard
+    // 從storyboard載入子控制器陣列
     UIStoryboard *aStoryboard = [UIStoryboard storyboardWithName:@"child" bundle:[NSBundle mainBundle]];
     childControllers = [NSArray arrayWithObjects:
                         [aStoryboard instantiateViewControllerWithIdentifier:@"0"],
@@ -116,18 +116,18 @@
     rightSwiper.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:rightSwiper];
     
-    // Set each child's tag and frame
+    // 設定每個子控制器的標號與frame
     for (UIViewController *controller in childControllers)
     {
         controller.view.tag = 1066;
         controller.view.frame = backsplash.bounds;
     }
     
-    // Initialize scene with first child controller
+    // 以第一個子控制器初始化畫面
     vcIndex = 0;
     UIViewController *controller = (UIViewController *)[childControllers objectAtIndex:0];
 
-    // Add child view controller
+    // 加入子視圖控制器
     [self addChildViewController:controller];
     [backsplash addSubview:controller.view];
     [controller didMoveToParentViewController:self];
@@ -138,7 +138,6 @@
     for (UIViewController *controller in childControllers)
         controller.view.frame = backsplash.bounds;
 }
-@end
 
 #pragma mark -
 
@@ -158,7 +157,7 @@
 	TestBedViewController *tbvc = [[TestBedViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tbvc];
     window.rootViewController = nav;
-	[window makeKeyAndVisible];
+	[window makeKeyAndVisible];    
     return YES;
 }
 @end

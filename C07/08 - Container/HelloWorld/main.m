@@ -55,7 +55,7 @@
     flip.view.bounds = CGRectMake(0.0f, 0.0f, 300.0f, 400.0f);
     flip.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     
-    // Setup Child View Controller
+    // 設定子視圖控制器
     [self addChildViewController:flip];
     [self.view addSubview:flip.view];
     [flip didMoveToParentViewController:self];

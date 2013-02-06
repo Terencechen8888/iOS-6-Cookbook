@@ -6,8 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
-// Two-way segue allows you to move in either direction
-// Informal delegate sends segueDidComplete message
+// 雙向串場，讓你可向兩個方向移動
+// 非正式委派方法segueDidComplete
 
 @interface RotatingSegue : UIStoryboardSegue
 {
