@@ -17,20 +17,20 @@
 
 @implementation TestBedViewController
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 	return 1;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (manager.entries) return manager.entries.count;
     return 0;
 }
 
-// On user tap, present detail 
+// 使用者點擊時，顯示細節
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dict = [manager.entries objectAtIndex:indexPath.row];

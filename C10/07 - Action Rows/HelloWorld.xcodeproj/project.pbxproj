@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04FE307316D4FC6300F89AC8 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE307216D4FC6300F89AC8 /* CustomCell.m */; };
 		8EB9BF0E158B9B4800F96828 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9BF0D158B9B4800F96828 /* Icon.png */; };
 		8EB9BF19158B9B7900F96828 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9BF10158B9B7900F96828 /* Default-Landscape@2x~ipad.png */; };
 		8EB9BF1A158B9B7900F96828 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9BF11158B9B7900F96828 /* Default-Landscape~ipad.png */; };
@@ -17,7 +18,6 @@
 		8EB9BF1F158B9B7900F96828 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9BF16158B9B7900F96828 /* Icon@2x.png */; };
 		8EB9BF20158B9B7900F96828 /* Icon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9BF17158B9B7900F96828 /* Icon~ipad.png */; };
 		8EB9BF21158B9B7900F96828 /* Icon~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9BF18158B9B7900F96828 /* Icon~ipad@2x.png */; };
-		8EC38FE315B38DE10034B7D1 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC38FE215B38DE10034B7D1 /* CustomCell.m */; };
 		8EC38FE515B3A2F10034B7D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC38FE415B3A2F10034B7D1 /* QuartzCore.framework */; };
 		8EC38FEB15B3A9C90034B7D1 /* NSIndexPathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC38FEA15B3A9C90034B7D1 /* NSIndexPathUtilities.m */; };
 		8EF624E115892BA600A81FD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF624E015892BA600A81FD2 /* UIKit.framework */; };
@@ -28,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04FE307116D4FC6300F89AC8 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCell.h; path = Utility/CustomCell.h; sourceTree = SOURCE_ROOT; };
+		04FE307216D4FC6300F89AC8 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = Utility/CustomCell.m; sourceTree = SOURCE_ROOT; };
 		8EB9BF0D158B9B4800F96828 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = AppArt/Icon.png; sourceTree = "<group>"; };
 		8EB9BF10158B9B7900F96828 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "AppArt/Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		8EB9BF11158B9B7900F96828 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "AppArt/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
@@ -38,8 +40,6 @@
 		8EB9BF16158B9B7900F96828 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "AppArt/Icon@2x.png"; sourceTree = "<group>"; };
 		8EB9BF17158B9B7900F96828 /* Icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon~ipad.png"; path = "AppArt/Icon~ipad.png"; sourceTree = "<group>"; };
 		8EB9BF18158B9B7900F96828 /* Icon~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon~ipad@2x.png"; path = "AppArt/Icon~ipad@2x.png"; sourceTree = "<group>"; };
-		8EC38FE115B38DE10034B7D1 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCell.h; path = ../../Utility/CustomCell.h; sourceTree = "<group>"; };
-		8EC38FE215B38DE10034B7D1 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = ../../Utility/CustomCell.m; sourceTree = "<group>"; };
 		8EC38FE415B3A2F10034B7D1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8EC38FE915B3A9C90034B7D1 /* NSIndexPathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSIndexPathUtilities.h; path = Utility/NSIndexPathUtilities.h; sourceTree = SOURCE_ROOT; };
 		8EC38FEA15B3A9C90034B7D1 /* NSIndexPathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSIndexPathUtilities.m; path = Utility/NSIndexPathUtilities.m; sourceTree = SOURCE_ROOT; };
@@ -71,8 +71,8 @@
 		8EC38FDD15B38D0A0034B7D1 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				8EC38FE115B38DE10034B7D1 /* CustomCell.h */,
-				8EC38FE215B38DE10034B7D1 /* CustomCell.m */,
+				04FE307116D4FC6300F89AC8 /* CustomCell.h */,
+				04FE307216D4FC6300F89AC8 /* CustomCell.m */,
 				8EC38FE915B3A9C90034B7D1 /* NSIndexPathUtilities.h */,
 				8EC38FEA15B3A9C90034B7D1 /* NSIndexPathUtilities.m */,
 			);
@@ -212,8 +212,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF624ED15892BA600A81FD2 /* main.m in Sources */,
-				8EC38FE315B38DE10034B7D1 /* CustomCell.m in Sources */,
 				8EC38FEB15B3A9C90034B7D1 /* NSIndexPathUtilities.m in Sources */,
+				04FE307316D4FC6300F89AC8 /* CustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

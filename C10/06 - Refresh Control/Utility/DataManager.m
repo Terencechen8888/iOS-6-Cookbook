@@ -15,7 +15,7 @@
     for (TreeNode *node in root.children)
         if (STREQ(node.key, @"entry"))
         {
-            // Retrieve Name, Artist, Image
+            // 取得名稱、演唱者、圖像
             NSString *name = [node leafForKey:@"im:name"];
             NSString *artist = [node leafForKey:@"im:artist"];
             NSString *imageAddress = [node leafForKey:@"im:image"];
@@ -25,7 +25,7 @@
             UIImage *image = [UIImage imageWithData:data];
             if (!image) continue;
             
-            // Store other info
+            // 儲存其他資訊
             NSString *address = [node leafForKey:@"id"];
             NSString *price = [node leafForKey:@"im:price"];
             
@@ -49,7 +49,7 @@
         [_delegate performSelectorOnMainThread:@selector(dataIsReady:) withObject:self waitUntilDone:NO];
 }
 
-// Fetch data from iTunes
+// 從iTunes取得資料
 - (void) loadData
 {
     NSString *rss = @"http://itunes.apple.com/us/rss/topalbums/limit=30/xml";

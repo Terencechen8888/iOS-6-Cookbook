@@ -10,7 +10,7 @@
 
 @interface NSIndexPath (adjustments)
 
-// Is this index path before the other
+// 此索引路徑是否位於其他的之前
 - (BOOL) before: (NSIndexPath *) path;
 
 @property (nonatomic, readonly) NSIndexPath *next;

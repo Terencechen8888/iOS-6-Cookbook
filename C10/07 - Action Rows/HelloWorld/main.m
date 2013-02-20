@@ -28,34 +28,34 @@
 
 #pragma mark Data Source
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
 	return 1;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     return items.count + (self.actionRowPath != nil);
 }
 
-// Return a cell for the index path
+// 根據索引路徑回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.actionRowPath isEqual:indexPath])
     {
-        // Action Row
+        // 動作列
         CustomCell *cell = (CustomCell *)[self.tableView dequeueReusableCellWithIdentifier:@"action" forIndexPath:indexPath];
         [cell setActionTarget:self];
         return cell;
     }
     else
     {
-        // Normal Cell
+        // 一般儲存格
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         
-        // Adjust item row around action row if needed
+        // 調整動作列周圍的項目列，若有需要的話
         NSInteger adjustedRow = indexPath.row;
         if (_actionRowPath && (_actionRowPath.row < indexPath.row)) adjustedRow--;        
         cell.textLabel.text = [items objectAtIndex:adjustedRow];
@@ -68,7 +68,7 @@
 
 #pragma mark Delegate
 
-// Deselect any current selection
+// 取消點選
 - (void) deselect
 {
     NSArray *paths = [self.tableView indexPathsForSelectedRows];
@@ -78,7 +78,7 @@
     [self.tableView deselectRowAtIndexPath:path animated:YES];
 }
 
-// On selection, update the title and enable find/deselect
+// 點選某列時，更新導覽列的顏色，並且啟用Find/Deselect
 - (void)tableView: (UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *pathsToAdd;
@@ -86,14 +86,14 @@
     
     if ([self.actionRowPath.previous isEqual:indexPath])
     {
-        // Hide Action Cell
+        // 隱藏動作儲存格
         pathsToDelete = @[self.actionRowPath];
         self.actionRowPath = nil;
         [self deselect];
     }
     else if (self.actionRowPath)
     {
-        // Move Action Cell
+        // 移動動作儲存格
         pathsToDelete = @[self.actionRowPath];
         BOOL before = [indexPath before:self.actionRowPath];
         NSIndexPath *newPath = before ? indexPath.next : indexPath;
@@ -102,12 +102,12 @@
     }
     else
     {
-        // New Action Cell
+        // 新的動作儲存格
         pathsToAdd = @[indexPath.next];
         self.actionRowPath = indexPath.next;
     }
     
-    // Perform the deletions and insertions
+    // 執行刪除與插入
     [self.tableView beginUpdates];
     if (pathsToDelete.count)
         [self.tableView deleteRowsAtIndexPaths:pathsToDelete withRowAnimation:UITableViewRowAnimationNone];
@@ -118,7 +118,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Only select normal cells
+    // 只能點選一般儲存格
     if([indexPath isEqual:self.actionRowPath]) return nil;
     return indexPath;
 }
@@ -160,7 +160,7 @@
 
 #pragma mark Table setup
 
-// Set up table
+// 設定表格
 - (void) loadView
 {
     [super loadView];

@@ -24,7 +24,7 @@
     return self;
 }
 
-// Only works on-device. Invalid in simulator.
+// 只能在實體裝置上執行，在模擬器上不行
 - (void) buy
 {
     NSString *address = dict[@"address"];
@@ -97,7 +97,7 @@
         PREPCONSTRAINTS(view);
     }
     
-    // Set aspect ratio for image view
+    // 設定圖像視圖的長寬比例
     [imageView addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f]];
 }
 
