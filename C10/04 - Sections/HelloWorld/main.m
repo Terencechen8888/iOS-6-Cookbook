@@ -18,19 +18,19 @@
 
 @implementation TestBedViewController
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
     return crayons.numberOfSections;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     return [crayons countInSection:section];
 }
 
-// Return a cell for the index path
+// 根據索引路徑回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -45,13 +45,13 @@
 	return cell;
 }
 
-// Find the section that corresponds to a given title
+// 根據給定標題，找出段的編號
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
 	return [ALPHA rangeOfString:title].location;
 }
 
-// Return the header title for a section
+// 回傳某段得標頭文字
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *sectionName = [crayons nameForSection:section];
@@ -59,7 +59,7 @@
     return [NSString stringWithFormat:@"Crayon names starting with '%@'", sectionName];
 }
 
-// Titles for the section index presentation
+// 段的索引的標題
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
     NSMutableArray *indices = [NSMutableArray array];
@@ -71,7 +71,7 @@
     return indices;
 }
 
-// On selecting a row, update the navigation bar tint
+// 點選某列時，更新導覽列的顏色
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIColor *color = [crayons colorAtIndexPath:indexPath];
@@ -79,7 +79,7 @@
 }
 
 
-// Set up table
+// 設定表格
 - (void) loadView
 {
     [super loadView];

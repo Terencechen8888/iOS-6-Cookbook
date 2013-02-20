@@ -18,25 +18,25 @@
 @implementation TestBedViewController
 
 #pragma mark Data Source
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
 	return 1;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     return items.count;
 }
 
-// Return a cell for the index path
+// 根據索引路徑回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.imageView.image = items[indexPath.row];
     
-    // Roughly center each image
+    // 大致置中每張圖像
     CGFloat targetWidth = aTableView.bounds.size.width - IMAGE_SIZE - 40.0f;
     cell.indentationLevel = 1;
     cell.indentationWidth = targetWidth / 2.0f;
@@ -46,7 +46,7 @@
 #pragma mark Edits
 - (void) setBarButtonItems
 {
-    // Expire any ongoing operations
+    // 終止任何正進行中的動作
     if (self.undoManager.isUndoing || self.undoManager.isRedoing)
     {
         [self performSelector:@selector(setBarButtonItems) withObject:nil afterDelay:0.1f];
@@ -76,11 +76,11 @@
 
 - (void) updateItemAtIndexPath: (NSIndexPath *) indexPath withObject: (id) object
 {
-    // Prepare for undo
+    // 為回復功能作準備
     id undoObject = object ? nil : [items objectAtIndex:indexPath.row];
 	[[self.undoManager prepareWithInvocationTarget:self] updateItemAtIndexPath:indexPath withObject:undoObject];
     
-	// You cannot insert a nil item. Passing nil is a delete request.
+	// 不能插入nil項目，傳入nil的意思是刪除
     [self.tableView beginUpdates];
     if (!object)
     {
@@ -99,7 +99,7 @@
 
 - (void) addItem: (id) sender
 {
-	// add a new item
+	// 加入新項目
 	NSIndexPath *newPath = [NSIndexPath indexPathForRow:items.count inSection:0];
     UIImage *image = blockImage(IMAGE_SIZE);
 	[self updateItemAtIndexPath:newPath withObject:image];
@@ -107,7 +107,7 @@
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	// delete item
+	// 刪除項目
 	[self updateItemAtIndexPath:indexPath withObject:nil];
 }
 
@@ -136,7 +136,7 @@
 #pragma mark Selection
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // No op
+    // 無動作
     // UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 }
 
@@ -162,7 +162,7 @@
 
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    // Re-adjust the cell insets so the images appear centered
+    // 重新調整儲存格，讓圖像顯示在中間
     [self.tableView reloadData];
 }
 
@@ -176,7 +176,7 @@
 
     items = [NSMutableArray array];
     
-    // Provide Undo Support
+    // 提供Undo功能
     [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
     [self setBarButtonItems];
 }

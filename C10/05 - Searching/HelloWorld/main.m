@@ -20,14 +20,14 @@
 
 @implementation TestBedViewController
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
     if (aTableView == searchController.searchResultsTableView) return 1;
     return crayons.numberOfSections;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     if (aTableView == searchController.searchResultsTableView)
@@ -35,7 +35,7 @@
     return [crayons countInSection:section];
 }
 
-// Return a cell for the index path
+// 根據索引路徑回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [aTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -67,7 +67,7 @@
     return cell;
 }
 
-// Find the section that corresponds to a given title
+// 根據給定標題，找出段的編號
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
     if (title == UITableViewIndexSearch)
@@ -78,7 +78,7 @@
     return [ALPHA rangeOfString:title].location;
 }
 
-// Titles for the section index presentation
+// 段的索引的標題
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
     if (aTableView == searchController.searchResultsTableView) return nil;
@@ -92,7 +92,7 @@
     return indices;
 }
 
-// Return the header title for a section
+// 回傳某段得標頭文字
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section
 {
     if (aTableView == searchController.searchResultsTableView) return nil;
@@ -100,7 +100,7 @@
 }
 
 
-// On selecting a row, update the navigation bar tint
+// 點選某列時，更新導覽列的顏色
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIColor *color = nil;
@@ -124,13 +124,13 @@
 
 }
 
-// Via Jack Lucky. Handle the cancel button by resetting the search text
+// 謝謝Jack Lucky。Cancel按鈕代表重置搜尋關鍵字
 - (void)searchBarCancelButtonClicked:(UISearchBar *)aSearchBar
 {
     [searchBar setText:@""];
 }
 
-// Upon appearing, scroll away the search bar
+// 顯示時，將搜尋列捲到外面
 - (void) viewDidAppear:(BOOL)animated
 {
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -138,14 +138,14 @@
 }
 
 
-// Set up table
+// 設定表格
 - (void) loadView
 {
     [super loadView];
     crayons = [[CrayonHandler alloc] init];
     
 
-    // Create a search bar
+    // 建立搜尋列
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
     searchBar.tintColor = COOKBOOK_PURPLE_COLOR;
     searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -153,7 +153,7 @@
     searchBar.keyboardType = UIKeyboardTypeAlphabet;
     self.tableView.tableHeaderView = searchBar;
     
-    // Create the search display controller
+    // 建立搜尋顯示控制器
     searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
     searchController.searchResultsDataSource = self;
     searchController.searchResultsDelegate = self;

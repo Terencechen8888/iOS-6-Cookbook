@@ -12,19 +12,19 @@
 
 @implementation TestBedViewController
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
 	return 1;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     return 4;
 }
 
-// Return a cell for the index path
+// 根據索引路徑回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -36,7 +36,7 @@
 	return cell;
 }
 
-// On selection, update the title and enable find/deselect
+// 被點選時，更新控制器標題並啟用Find/Deselect按鈕
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -45,7 +45,7 @@
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
 
-// Deselect any current selection
+// 取消點選
 - (void) deselect
 {
     NSArray *paths = [self.tableView indexPathsForSelectedRows];
@@ -59,14 +59,14 @@
     self.title = nil;
 }
 
-// Move to the selection
+// 捲動到被點選的儲存格
 - (void) find
 {
     [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 
-// Set up table
+// 設定表格
 - (void) loadView
 {
     [super loadView];

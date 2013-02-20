@@ -16,24 +16,24 @@
 
 @implementation TestBedViewController
 
-// Number of sections
+// 段的數目
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
 	return 1;
 }
 
-// Rows per section
+// 某段含有的列的數目
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     return items.count;
 }
 
-// Return a cell for the index path
+// 根據索引路徑回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    // Cell label
+    // 儲存格標籤
     cell.textLabel.text = [items objectAtIndex:indexPath.row];
     BOOL isChecked = ((NSNumber *)stateDictionary[indexPath]).boolValue;
     cell.accessoryType =  isChecked ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -41,7 +41,7 @@
 	return cell;
 }
 
-// On selection, update the title
+// 被點選時，更新控制器標題
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -60,7 +60,7 @@
     self.title = [@[@(numChecked).stringValue, @" Checked"] componentsJoinedByString:@" "];
 }
 
-// Set up table
+// 設定表格
 - (void) loadView
 {
     [super loadView];

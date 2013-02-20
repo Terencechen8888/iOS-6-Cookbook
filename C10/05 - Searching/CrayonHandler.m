@@ -9,7 +9,7 @@
 #define CRAYON_COLOR(CRAYON) getColor([[CRAYON componentsSeparatedByString:@"#"] lastObject])
 #define ALPHA	@"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-// Convert a 6-character hex color to a UIColor object
+// 將十六進位的顏色值（6個字母）轉成UIColor物件
 UIColor *getColor(NSString *hexColor)
 {
 	unsigned int red, green, blue;
@@ -27,32 +27,32 @@ UIColor *getColor(NSString *hexColor)
 }
 
 @implementation CrayonHandler
-// Return an array of items that appear in each section
+// 回傳陣列，含有某段裡的項目
 - (NSArray *) itemsInSection: (NSInteger) section
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF beginswith[cd] %@", [self firstLetter:section]];
     return [[crayonColors allKeys] filteredArrayUsingPredicate:predicate];
 }
 
-// Count of active sections
+// 計算運作中的段的數目
 - (NSInteger) numberOfSections
 {
     return sectionArray.count;
 }
 
-// Number of items within a section
+// 段裡有幾個項目
 - (NSInteger) countInSection: (NSInteger) section
 {
     return [sectionArray[section] count];
 }
 
-// Return the letter that starts each section member's text
+// 回傳段名的第一個字母
 - (NSString *) firstLetter: (NSInteger) section
 {
     return [[ALPHA substringFromIndex:section] substringToIndex:1];
 }
 
-// The one letter section name
+// 段的名字，只有一個字母
 - (NSString *) nameForSection: (NSInteger) section
 {
     if (![self countInSection:section])
@@ -60,7 +60,7 @@ UIColor *getColor(NSString *hexColor)
     return [self firstLetter:section];
 }
 
-// Color name by index path
+// 根據索引路徑，回傳顏色名
 - (NSString *) colorNameAtIndexPath: (NSIndexPath *) path
 {
     if (path.section >= sectionArray.count)
@@ -74,7 +74,7 @@ UIColor *getColor(NSString *hexColor)
     return crayon;
 }
 
-// Color by index path
+// 根據索引路徑，回傳顏色UIColor物件
 - (UIColor *) colorAtIndexPath: (NSIndexPath *) path
 {
     NSString *crayon = [self colorNameAtIndexPath:path];
@@ -83,13 +83,13 @@ UIColor *getColor(NSString *hexColor)
     return nil;
 }
 
-// Color by name
+// 以顏色名回傳UIColor物件
 - (UIColor *) colorNamed: (NSString *) aColor
 {
     return crayonColors[aColor];
 }
 
-// For searching
+// 搜尋過濾
 - (NSInteger) filterWithString: (NSString *) filter
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", filter];
@@ -102,7 +102,7 @@ UIColor *getColor(NSString *hexColor)
     if (!(self = [super init]))
         return nil;
     
-    // Prepare the crayon color dictionary
+    // 準備儲存蠟筆顏色的字典
 	NSString *pathname = [[NSBundle mainBundle]  pathForResource:@"crayons" ofType:@"txt"];
 	NSArray *rawCrayons = [[NSString stringWithContentsOfFile:pathname encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByString:@"\n"];
 	crayonColors = [NSMutableDictionary dictionary];
