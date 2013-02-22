@@ -40,22 +40,22 @@ UIImage *stringImage(NSString *string, UIFont *font, CGFloat inset, UIColor *col
     CGSize baseSize = [string sizeWithFont:font];
     CGSize adjustedSize = CGSizeMake(baseSize.width + inset * 2, baseSize.height + inset * 2);
     
-    // Start drawing
+    // 開始繪製
 	UIGraphicsBeginImageContext(adjustedSize);
     
-    // Draw backdrop
+    // 繪製背景
     CGRect bounds = (CGRect){.size = adjustedSize};
     fillRectWithColor([UIColor whiteColor], bounds);
     fillRectWithColor(color, bounds);
     
-    // Draw a black edge
+    // 繪製黑色邊框
     strokeRectWithColorAndWidth([UIColor blackColor], inset, bounds);
     
-    // Draw the string in black
+    // 繪製字串，黑色
     CGRect insetBounds = CGRectInset(bounds, inset, inset);
     drawString(insetBounds, font, [UIColor blackColor], string);
     
-    // Return new image
+    // 回傳新圖像物件
 	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return newImage;

@@ -20,13 +20,13 @@ UIImage *stringImageTinted(NSString *string, UIFont *aFont, CGFloat inset)
 	UIGraphicsBeginImageContext(adjustedSize);
 	CGContextRef context = UIGraphicsGetCurrentContext();
     
-    // Draw white backdrop
+    // 繪製白色背景
     CGRect bounds = (CGRect){.size = adjustedSize};
 	[[UIColor whiteColor] set];
 	CGContextAddRect(context, bounds);
 	CGContextFillPath(context);
     
-    // Tint a random color over the white backdrop
+    // 在白色背景上以隨機顏色上色
     [[UIColor colorWithRed:((rand() % 255) / 255.0f)
                      green:((rand() % 255) / 255.0f)
                       blue:((rand() % 255) / 255.0f)
@@ -34,13 +34,13 @@ UIImage *stringImageTinted(NSString *string, UIFont *aFont, CGFloat inset)
     CGContextAddRect(context, bounds);
     CGContextFillPath(context);
 
-    // Draw a black edge
+    // 繪製黑色邊框
     [[UIColor blackColor] set];
 	CGContextAddRect(context, bounds);
     CGContextSetLineWidth(context, inset);
     CGContextStrokePath(context);
 
-    // Draw the string in black
+    // 繪製字串，黑色
     CGRect insetBounds = CGRectInset(bounds, inset, inset);
     [string drawInRect:insetBounds withFont:aFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
     

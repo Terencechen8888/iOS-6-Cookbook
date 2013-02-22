@@ -50,7 +50,7 @@
         artDictionary[indexPath] = image;
     }
     
-    // Add some random fun
+    // 以亂數增添樂趣
     // CGFloat zoom = 1.0f + ((rand() % 20) / 40.0f);
     CGFloat zoom = 1.0f;
     
