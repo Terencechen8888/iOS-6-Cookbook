@@ -7,13 +7,13 @@
 #import "ReflectingView.h"
 
 @implementation ReflectingView
-// Always use a replicator as the base layer
+// 使用CAReplicatorLayer作為基底圖層
 + (Class) layerClass
 {
     return [CAReplicatorLayer class];
 }
 
-// Clean up any existing gradient from parent
+// 清除父圖層裡已存在的漸層
 - (void) dealloc
 {
     [gradient removeFromSuperlayer];
@@ -21,7 +21,7 @@
 
 - (void) setupGradient
 {
-    // Add a new gradient layer to the parent
+    // 加入新的漸層圖層到附圖層裡
     UIView *parent = self.superview;
     if (!gradient)
     {
@@ -33,7 +33,7 @@
         [parent.layer addSublayer:gradient];
     }
     
-    // Place the gradient just below the view using the reflection's geometry
+    // 使用倒影的幾何性質，將漸層放在視圖之下
     float desiredGap = 10.0f;
     CGFloat shrinkFactor = 0.40f;
     CGFloat height = self.bounds.size.height;
@@ -52,7 +52,7 @@
     
     CATransform3D t = CATransform3DMakeScale(1.0, -shrinkFactor, 1.0);
     
-    // scaling centers the shadow in the view. translate in shrunken terms
+    // 縮放時將陰影置中，位移縮小後的項目
     float offsetFromBottom = height * ((1.0f - shrinkFactor) / 2.0f);
     float inverse = 1.0 / shrinkFactor;
     float desiredGap = 5.0f;
@@ -62,12 +62,12 @@
     replicatorLayer.instanceTransform = t;
     replicatorLayer.instanceCount = 2;
     
-    // Gradient use must be explicitely set
+    // 明確設定使用漸層
     if (_usesGradientOverlay)
         [self setupGradient];
     else
     {
-        // Darken the reflection when not using a gradient
+        // 不使用漸層時，讓倒影變暗
         replicatorLayer.instanceRedOffset = -0.75;
         replicatorLayer.instanceGreenOffset = -0.75;
         replicatorLayer.instanceBlueOffset = -0.75;

@@ -48,14 +48,14 @@
 {
     CGFloat offsetAdjustment = MAXFLOAT;
     
-    // Retrieve all onscreen items at the proposed starting point
+    // 根據某啟始點，取得所有出現在畫面上的項目
     CGRect targetRect = CGRectMake(proposedContentOffset.x, 0.0, boundsSize.width, boundsSize.height);
     NSArray *array = [super layoutAttributesForElementsInRect:targetRect];
 
-    // Determine the proposed center x-coordinate
+    // 決定x軸座標
     CGFloat proposedCenterX = proposedContentOffset.x + midX;
     
-    // Search for the minimum offset adjustment
+    // 尋找調整幅度最小的那個項目
     for (UICollectionViewLayoutAttributes* layoutAttributes in array)
     {
         CGFloat distance = layoutAttributes.center.x - proposedCenterX;
@@ -63,7 +63,7 @@
             offsetAdjustment = distance;
     }
     
-    // Offset the content by the minimal centering
+    // 調整位移量
     return CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y);
 }
 @end

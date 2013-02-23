@@ -21,17 +21,17 @@ UIImage *blockImage()
 	UIGraphicsBeginImageContext(backgroundSize);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
-    // Draw white backdrop and frame
+    // 繪製白色背景與外框圖檔frame.png
 	[[UIColor whiteColor] set];
 	CGContextAddRect(context, bounds);
 	CGContextFillPath(context);
     UIImage *frameImage = [UIImage imageNamed:@"frame.png"];
     [frameImage drawInRect:bounds];
 	    
-    // Create a white backdrop
+    // 建立白色背景的範圍
     bounds = CGRectMake(25.0f, 22.0f, 200.0f, 200.0f);
     
-    // Prepare for the inset children
+    // 準備插入子視圖的位置
     CGRect insetBounds = CGRectInset(bounds, inset, inset);
     int numChildren = 4 + rand() % 4;
     
@@ -46,7 +46,7 @@ UIImage *blockImage()
         CGFloat dy = insetBounds.size.height - randY;
         CGFloat randH = dy * (0.5f + (rand() % 1000) / 2000.0f);
         
-        // Add the tinted child view
+        // 加入上色後的子視圖
         CGRect childBounds = CGRectMake(randX, randY, randW, randH);
         CGContextAddEllipseInRect(context, childBounds);
         CGContextFillPath(context);
