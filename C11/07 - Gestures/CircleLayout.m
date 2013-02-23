@@ -18,7 +18,7 @@
     radius = MIN(size.width, size.height) / 3.0f;
 }
 
-// Fix the content size to the frame size
+// 將內容大小固定為frame的大小
 - (CGSize) collectionViewContentSize
 {
     return self.collectionView.frame.size;
@@ -52,7 +52,7 @@
 }
 
 
-// Calculate position for each item
+// 計算每個項目的位置
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)path
 {
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:path];
@@ -69,7 +69,7 @@
     return attributes;
 }
 
-// Calculate layouts
+// 計算每個項目的佈局屬性
 - (NSArray *) layoutAttributesForElementsInRect: (CGRect) rect
 {
     NSMutableArray *attributes = [NSMutableArray array];

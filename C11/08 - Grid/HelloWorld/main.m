@@ -39,7 +39,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 7;
-    // return 1 + section; // for stairstep
+    // return 1 + section; // 階梯狀
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)_collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

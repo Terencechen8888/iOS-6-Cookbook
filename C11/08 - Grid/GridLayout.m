@@ -10,7 +10,7 @@
 
 /*
 
- Note: This grid never wraps so never uses line spacing.
+ Note: 此網格狀流動佈局，不會繞捲，所以不會使用行距的設定
  
  */
 
@@ -19,13 +19,13 @@
 #pragma mark -
 #pragma mark Items
 
-// Does a delegate provides individual sizing?
+// 委派有提供個別項目的大小嗎？
 - (BOOL) usesIndividualSizing
 {
     return [self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)];
 }
 
-// Return cell size for an item
+// 根據索引路徑，回傳項目的儲存格大小
 - (CGSize) sizeForItemAtIndexPath: (NSIndexPath *) indexPath
 {
     BOOL individuallySized = [self usesIndividualSizing];
@@ -38,13 +38,13 @@
 #pragma mark -
 #pragma mark Insets
 
-// Individual insets?
+// 使用個別邊緣間距嗎？
 - (BOOL) usesIndividualInsets
 {
     return [self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)];
 }
 
-// Return insets for section
+// 回傳段的邊緣間距
 - (UIEdgeInsets) insetsForSection: (NSInteger) section
 {
     UIEdgeInsets insets = self.sectionInset;
@@ -56,13 +56,13 @@
 #pragma mark -
 #pragma mark Item Spacing
 
-// Individual item spacing?
+// 使用個別項目的間距嗎？
 - (BOOL) usesIndividualItemSpacing
 {
     return [self.collectionView.delegate respondsToSelector:@selector(layout:minimumInteritemSpacingForSectionAtIndex:)];
 }
 
-// Return spacing for section
+// 回傳某段裡的間距
 - (CGFloat) itemSpacingForSection: (NSInteger) section
 {
     CGFloat spacing = self.minimumInteritemSpacing;
@@ -74,7 +74,7 @@
 #pragma mark -
 #pragma mark Layout Geometry
 
-// Find the tallest subview
+// 找出最高的子視圖
 - (CGFloat) maxItemHeightForSection: (NSInteger) section
 {
     CGFloat maxHeight = 0.0f;
@@ -90,7 +90,7 @@
     return maxHeight;
 }
 
-// "Horizontal" row-based extent from the start of the section to its end
+// 水平寬度，從段的開頭到結尾
 - (CGFloat) fullWidthForSection: (NSInteger) section
 {
     UIEdgeInsets insets = [self insetsForSection:section];
@@ -107,12 +107,12 @@
         collectiveWidth += [self itemSpacingForSection:section];
     }
     
-    collectiveWidth -= [self itemSpacingForSection:section]; // take back one spacer, n-1
+    collectiveWidth -= [self itemSpacingForSection:section]; // 減去一個間隔，n-1
     
     return collectiveWidth;
 }
 
-// Bounding size for each section
+// 每一段的範圍
 - (CGSize) fullSizeForSection: (NSInteger) section
 {
     CGFloat headerExtent = (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) ? self.headerReferenceSize.width : self.headerReferenceSize.height;
@@ -128,7 +128,7 @@
     return CGSizeMake(fullWidth, fullHeight);
 }
 
-// How far is each item offset within the section
+// 在每一段裡，每個項目的位移量
 - (CGFloat) horizontalInsetForItemAtIndexPath: (NSIndexPath *) indexPath
 {
     UIEdgeInsets insets = [self insetsForSection:indexPath.section];
@@ -145,28 +145,28 @@
     return horizontalOffset;
 }
 
-// How far is each item down
+// 每個項目往下的位移量
 - (CGFloat) verticalInsetForItemAtIndexPath: (NSIndexPath *) indexPath
 {
     CGSize thisItemSize = [self sizeForItemAtIndexPath:indexPath];
     CGFloat verticalOffset = 0.0f;
 
-    // Previous sections
+    // 前面的段
     if (indexPath.section > 0)
     {
         for (int i = 0; i < indexPath.section; i++)
             verticalOffset += [self fullSizeForSection:i].height;
     }
     
-    // Header
+    // 標頭
     CGFloat headerExtent = (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) ? self.headerReferenceSize.width : self.headerReferenceSize.height;
     verticalOffset += headerExtent;
     
-    // Top inset
+    // 邊緣間距，上
     UIEdgeInsets insets = [self insetsForSection:indexPath.section];
     verticalOffset += insets.top;
     
-    // Vertical centering
+    // 垂直置中
     CGFloat maxHeight = [self maxItemHeightForSection:indexPath.section];
     CGFloat fullHeight = (maxHeight - thisItemSize.height);
     CGFloat midHeight = fullHeight / 2.0f;
@@ -192,7 +192,7 @@
 #pragma mark -
 #pragma mark Layout Attributes
 
-// Provide per-item placement
+// 放置每一項目
 - (UICollectionViewLayoutAttributes *) layoutAttributesForItemAtIndexPath: (NSIndexPath *) indexPath
 {
 	UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
@@ -209,7 +209,7 @@
 	return attributes;
 }
 
-// Return full extent
+// 回傳完整的範圍
 - (CGSize) collectionViewContentSize
 {
     NSInteger sections = self.collectionView.numberOfSections;
@@ -230,7 +230,7 @@
         return CGSizeMake(collectiveHeight, maxWidth);
 }
 
-// Provide grid layout attributes
+// 提供網格狀的佈局屬性
 - (NSArray *) layoutAttributesForElementsInRect: (CGRect) rect
 {
     NSMutableArray *attributes = [NSMutableArray array];

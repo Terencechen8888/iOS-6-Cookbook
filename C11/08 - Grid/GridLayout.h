@@ -19,7 +19,7 @@ typedef enum
 @property (nonatomic) GridRowAlignment alignment;
 
 /* 
-// If you want to subclass UICollectionViewLayout directly add these properties
+// 若你想直接繼承UICollectionViewLayout，請加入這些屬性
 @property (nonatomic) CGSize footerReferenceSize;
 @property (nonatomic) CGSize headerReferenceSize;
 @property (nonatomic) CGSize itemSize;

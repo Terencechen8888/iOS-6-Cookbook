@@ -18,7 +18,7 @@
 
 - (void) rotateSelf
 {
-    // This is harder than it looks
+    // 這可比看起來困難許多
     [UIView animateWithDuration:0.25f animations:^(){self.transform = CGAffineTransformMakeRotation(M_PI * .95);} completion:^(BOOL done){
         [UIView animateWithDuration:0.25f animations:^(){self.transform = CGAffineTransformMakeRotation(M_PI * 1.5);} completion:^(BOOL done){self.transform = CGAffineTransformIdentity;
         }];

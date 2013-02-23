@@ -15,7 +15,7 @@
     CGFloat rotation;
     CGFloat currentRotation;
 }
-- (void) rotateBy: (CGFloat) theta; // intermediate
-- (void) rotateTo: (CGFloat) theta; // finished
+- (void) rotateBy: (CGFloat) theta; // 中間
+- (void) rotateTo: (CGFloat) theta; // 結束
 - (void) scaleTo: (CGFloat) factor;
 @end
