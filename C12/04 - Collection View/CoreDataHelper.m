@@ -15,26 +15,26 @@
 {
     NSEntityDescription *entity = [NSEntityDescription entityForName:_entityName inManagedObjectContext:_context];
     
-    // Init a fetch request
+    // 初始化擷取請求
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = entity;
     [fetchRequest setFetchBatchSize:0];
     
-    // Apply an ascending sort for the items
+    // 套用漸升型排序
     NSString *sortKey = sortAttribute ? : _defaultSortAttribute;
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:YES selector:nil];
     NSArray *descriptors = @[sortDescriptor];
     fetchRequest.sortDescriptors = descriptors;
     
-    // Setup predicate
+    // 設定過濾條件
     if (searchString && searchString.length && attribute && attribute.length)
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", attribute, searchString];
 
-    // Init the fetched results controller
+    // 初始化擷取請求控制器
     NSError __autoreleasing *error;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:_context sectionNameKeyPath:@"section" cacheName:nil];
     
-    // Perform the fetch
+    // 執行
     if (![_fetchedResultsController performFetch:&error])
         NSLog(@"Error fetching data: %@", error.localizedFailureReason);
 }
@@ -74,7 +74,7 @@
 }
 
 # pragma mark Management
-// Save
+// 儲存
 - (BOOL) save
 {
     NSError __autoreleasing *error;
@@ -84,7 +84,7 @@
     return success;
 }
 
-// Delete all objects
+// 刪除全部物件
 - (BOOL) clearData
 {
     [self fetchData];
@@ -94,7 +94,7 @@
     return [self save];
 }
 
-// Delete one object
+// 刪除一個物件
 - (BOOL) deleteObject: (NSManagedObject *) object
 {
     [self fetchData];
@@ -106,7 +106,7 @@
     return [self save];
 }
 
-// Create new object
+// 建立新物件
 - (NSManagedObject *) newObject
 {
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:_entityName inManagedObjectContext:_context];
@@ -135,13 +135,13 @@
         return;
     }
 
-    // Init the model
+    // 初始化模型
     NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     
-    // Create the store coordinator
+    // 建立儲存庫協調者
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
 
-    // Connect to store
+    // 連接儲存庫與檔案
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@-collection.sqlite", DOCUMENTS_FOLDER, _entityName]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error])
     {
@@ -149,7 +149,7 @@
         return;
     }
 
-    // Create establish the context
+    // 建立內文
     _context = [[NSManagedObjectContext alloc] init];
     _context.persistentStoreCoordinator = persistentStoreCoordinator;
     _context.undoManager = [[NSUndoManager alloc] init];

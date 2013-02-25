@@ -19,20 +19,20 @@
 
 #pragma mark Data Source
 
-// Number of sections
+// 有幾段
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 	return dataHelper.fetchedResultsController.sections.count;
 }
 
-// Rows per section
+// 每段有幾列
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = dataHelper.fetchedResultsController.sections[section];
     return sectionInfo.numberOfObjects;
 }
 
-// Return the title for a given section
+// 段的標題
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section
 {
     NSArray *titles = [dataHelper.fetchedResultsController sectionIndexTitles];
@@ -41,7 +41,7 @@
     return titles[section];
 }
 
-// Section index titles
+// 段的索引標題
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
     return [dataHelper.fetchedResultsController sectionIndexTitles];
@@ -51,7 +51,7 @@
 {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"generic" forIndexPath:indexPath];
 
-    // Recover object from fetched results
+    // 從擷取結果裡回復物件
 	Person *person = [dataHelper.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = person.fullname;
     
@@ -61,7 +61,7 @@
 #pragma mark Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // When a row is selected, update the title accordingly
+    // 某列被點選時，隨之更新標題
     Person *person = (Person *)[dataHelper.fetchedResultsController objectAtIndexPath:indexPath];
     self.title = person.fullname;
 }
@@ -101,15 +101,15 @@
     [super loadView];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"generic"];
  
-    // Establish Core Data
+    // 建立Core Data
     dataHelper = [[CoreDataHelper alloc] init];
     dataHelper.entityName = @"Person";
     dataHelper.defaultSortAttribute = @"surname";
     
-    // Check for existing data
+    // 檢查是否有資料已經存在
     BOOL firstRun = !dataHelper.hasStore;
     
-    // Setup core data
+    // 設定
     [dataHelper setupCoreData];
     if (firstRun)
         [self initializeData];

@@ -37,7 +37,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    // Rows per section
+    // 段裡有幾列
     id <NSFetchedResultsSectionInfo> sectionInfo = dataHelper.fetchedResultsController.sections[section];
     return sectionInfo.numberOfObjects;
 }
@@ -106,14 +106,14 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    // Respond to data change from undo controller
+    // 資料變更了，進行更新
     [self refresh];
 }
 
 #define GETINDEX(ATTRIBUTE) [attributes indexOfObject:ATTRIBUTE]
 - (void) setupNewPerson: (Person *) person
 {
-    // Add a new item to the database
+    // 加入一筆新資料到資料庫裡
     NSArray *attributes = @[@"number", @"gender", @"givenname", @"middleinitial", @"surname", @"streetaddress", @"city", @"state", @"zipcode", @"country", @"emailaddress", @"password", @"telephonenumber", @"mothersmaiden", @"birthday", @"cctype", @"ccnumber", @"cvv2", @"ccexpires", @"nationalid", @"ups", @"occupation", @"domain", @"bloodtype", @"pounds", @"kilograms", @"feetinches", @"centimeters"];
 
     if (!lineArray)
@@ -137,7 +137,7 @@
 
 - (void) addItem
 {
-    // Surround the "add" functionality with undo grouping
+    // 將add以undo群組包起來
     NSUndoManager *manager = dataHelper.context.undoManager;
     [manager beginUndoGrouping];
     {
@@ -233,7 +233,7 @@
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
 	TestBedViewController *tbvc = [[TestBedViewController alloc] initWithCollectionViewLayout:layout];
     
-    // Setup Core Data *before* presenting collection view
+    // 顯示群集視圖「之前」，設定好Core Data
     tbvc.dataHelper = [[CoreDataHelper alloc] init];
     tbvc.dataHelper.entityName = @"Person";
     tbvc.dataHelper.defaultSortAttribute = @"section";

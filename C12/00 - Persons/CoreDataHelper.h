@@ -9,7 +9,7 @@
 
 /*
  
- Section name is always "section". Makes life easy.
+ 段的名稱一定是"section"，保持一致讓開發工作更簡便
  
  */
 

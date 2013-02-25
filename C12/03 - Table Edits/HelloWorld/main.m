@@ -25,21 +25,21 @@
 #pragma mark Data Source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Number of sections
+    // 有幾段
     if (dataHelper.numberOfEntities == 0) return 0;
 	return dataHelper.fetchedResultsController.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Rows per section
+    // 每段有幾列
     id <NSFetchedResultsSectionInfo> sectionInfo = dataHelper.fetchedResultsController.sections[section];
     return sectionInfo.numberOfObjects;
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section
 {
-    // Return the title for a given section
+    // 段的標題
     NSArray *titles = [dataHelper.fetchedResultsController sectionIndexTitles];
     if (titles.count <= section)
         return @"Error";
@@ -48,7 +48,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    // Allow scrolling to search bar
+    // 允許捲動到搜尋列
 	if (title == UITableViewIndexSearch)
 	{
 		[self.tableView scrollRectToVisible:searchController.searchBar.frame animated:NO];
@@ -59,14 +59,14 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
-    // Section index titles including search icon
+    // 段的索引標題，包括搜尋圖示
     if (aTableView == searchController.searchResultsTableView) return nil;
     return [[NSArray arrayWithObject:UITableViewIndexSearch] arrayByAddingObjectsFromArray:[dataHelper.fetchedResultsController sectionIndexTitles]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return a table-specific cell and populate it
+    // 根據目前顯示的表格回傳儲存格
     [aTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 	Person *person = [dataHelper.fetchedResultsController objectAtIndexPath:indexPath];
@@ -77,13 +77,13 @@
 #pragma mark Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // no op
+    // 無動作
 }
 
 #pragma mark Editing and Undo
 - (void) setBarButtonItems
 {
-    // Expire any ongoing operations
+    // 終止任何進行中的動作
     if (dataHelper.context.undoManager.isUndoing || dataHelper.context.undoManager.isRedoing)
     {
         [self performSelector:@selector(setBarButtonItems) withObject:nil afterDelay:0.1f];
@@ -102,18 +102,18 @@
 
 - (void) refresh
 {
-    // If searching, fetch search results, otherwise all data
+    // 若處於搜尋狀態，擷取搜尋後的結果，若不是，顯示所有資料
     if (searchController.searchBar.text)
         [dataHelper fetchItemsMatching:searchController.searchBar.text forAttribute:@"surname" sortingBy:nil];
     else
         [dataHelper fetchData];
     dataHelper.fetchedResultsController.delegate = self;
     
-    // Reload tables
+    // 重新載入表格
     [self.tableView reloadData];
     [searchController.searchResultsTableView reloadData];
     
-    // Update bar button items
+    // 更新列按鈕項目
     [self setBarButtonItems];
 }
 
@@ -158,7 +158,7 @@
 #define GETINDEX(ATTRIBUTE) [attributes indexOfObject:ATTRIBUTE]
 - (void) setupNewPerson: (Person *) person
 {
-    // Add a new item to the database
+    // 加入一筆新資料到資料庫裡
     NSArray *attributes = @[@"number", @"gender", @"givenname", @"middleinitial", @"surname", @"streetaddress", @"city", @"state", @"zipcode", @"country", @"emailaddress", @"password", @"telephonenumber", @"mothersmaiden", @"birthday", @"cctype", @"ccnumber", @"cvv2", @"ccexpires", @"nationalid", @"ups", @"occupation", @"domain", @"bloodtype", @"pounds", @"kilograms", @"feetinches", @"centimeters"];
 
     if (!lineArray)
@@ -180,7 +180,7 @@
 
 - (void) addItem
 {
-    // Surround the "add" functionality with undo grouping
+    // 將add以undo群組包起來
     NSUndoManager *manager = dataHelper.context.undoManager;
     [manager beginUndoGrouping];
     {
@@ -194,7 +194,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // delete request
+    // 刪除
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         NSManagedObject *object = [dataHelper.fetchedResultsController objectAtIndexPath:indexPath];
@@ -211,14 +211,14 @@
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Editing only on the main table
+    // 只有主表格支援編輯功能
     if (aTableView == searchController.searchResultsTableView) return NO;
     return YES;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return NO;     // no reordering allowed
+    return NO;     // 不允許調整順序
 }
 
 - (void) setEditing: (BOOL) isEditing animated: (BOOL) animated
@@ -237,14 +237,14 @@
 #pragma mark Search Bar
 - (void)searchBarCancelButtonClicked:(UISearchBar *)aSearchBar
 {
-    // Stop search
+    // 停止搜尋
 	aSearchBar.text = @"";
     [self refresh];
 }
 
 - (void)searchBar:(UISearchBar *)aSearchBar textDidChange:(NSString *)searchText
 {
-    // Update the search by building a predicate
+    // 建立NSPredicate更新搜尋結果
 	[dataHelper fetchItemsMatching:aSearchBar.text forAttribute:@"surname" sortingBy:nil];
 }
 
@@ -255,7 +255,7 @@
     [super loadView];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    // Create a search bar
+    // 建立搜尋列
 	UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
     searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -263,23 +263,23 @@
 	searchBar.delegate = self;
 	self.tableView.tableHeaderView = searchBar;
 	
-	// Create the search display controller
+	// 建立搜尋顯示控制器
 	searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
 	searchController.searchResultsDataSource = self;
 	searchController.searchResultsDelegate = self;
 
-    // Establish Core Data
+    // 建立Core Data
     dataHelper = [[CoreDataHelper alloc] init];
     dataHelper.entityName = @"Person";
     dataHelper.defaultSortAttribute = @"surname";
     
-    // Prepare for data entry
+    // 準備亂數
     srand(time(0));
     index = rand() % 1000;
 
-    // Setup
+    // 設定
     [dataHelper setupCoreData];
-    // [dataHelper clearData]; // You may want to clear the data on run
+    // [dataHelper clearData]; // 你或許想要在執行時先清除資料
     [self refresh];
 }
 
@@ -296,7 +296,7 @@
     
     if (dataHelper.numberOfEntities == 0) return;
     
-    // Hide the search bar
+    // 隱藏搜尋列
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }

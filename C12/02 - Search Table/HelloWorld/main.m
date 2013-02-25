@@ -20,20 +20,20 @@
 
 #pragma mark Data Source
 
-// Number of sections
+// 有幾段
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 	return dataHelper.fetchedResultsController.sections.count;
 }
 
-// Rows per section
+// 每段有幾列
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = dataHelper.fetchedResultsController.sections[section];
     return sectionInfo.numberOfObjects;
 }
 
-// Return the title for a given section
+// 段的標題
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section
 {
     NSArray *titles = [dataHelper.fetchedResultsController sectionIndexTitles];
@@ -42,10 +42,10 @@
     return titles[section];
 }
 
-// Allow scrolling to search bar
+// 允許捲動到搜尋列
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-	// Query the titles for the section associated with an index title
+	// 取得段的標題
 	if (title == UITableViewIndexSearch)
 	{
 		[self.tableView scrollRectToVisible:searchController.searchBar.frame animated:NO];
@@ -54,14 +54,14 @@
 	return [dataHelper.fetchedResultsController.sectionIndexTitles indexOfObject:title];
 }
 
-// Section index titles
+// 段的索引標題
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
     if (aTableView == searchController.searchResultsTableView) return nil;
     return [[NSArray arrayWithObject:UITableViewIndexSearch] arrayByAddingObjectsFromArray:[dataHelper.fetchedResultsController sectionIndexTitles]];
 }
 
-// Return a table-specific cell and populate it with the data at the index path
+// 根據目前顯示的表格回傳儲存格
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [aTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -74,7 +74,7 @@
 #pragma mark Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // When a row is selected, update the title accordingly
+    // 某列被點選時，隨之更新標題
     Person *person = (Person *)[dataHelper.fetchedResultsController objectAtIndexPath:indexPath];
     self.title = person.fullname;
 }
@@ -126,7 +126,7 @@
 {
     [super loadView];
     
-    // Create a search bar
+    // 建立搜尋列
 	UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
     searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -134,20 +134,20 @@
 	searchBar.delegate = self;
 	self.tableView.tableHeaderView = searchBar;
 	
-	// Create the search display controller
+	// 建立搜尋顯示控制器
 	searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
 	searchController.searchResultsDataSource = self;
 	searchController.searchResultsDelegate = self;
 
-    // Establish Core Data
+    // 建立Core Data
     dataHelper = [[CoreDataHelper alloc] init];
     dataHelper.entityName = @"Person";
     dataHelper.defaultSortAttribute = @"surname";
     
-    // Check for existing data
+    // 檢查是否已經有資料
     BOOL firstRun = !dataHelper.hasStore;
     
-    // Setup core data
+    // 設定
     [dataHelper setupCoreData];
     if (firstRun)
         [self initializeData];
@@ -156,7 +156,7 @@
     [self.tableView reloadData];
 }
 
-// Hide the search bar
+// 隱藏搜尋列
 - (void) viewDidAppear:(BOOL)animated
 {
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];

@@ -92,15 +92,15 @@
     CONSTRAIN(self.view, textView, @"H:|[textView(>=0)]|");
     CONSTRAIN(self.view, textView, @"V:|[textView(>=0)]|");
     
-    // Establish Core Data
+    // 建立Core Data
     dataHelper = [[CoreDataHelper alloc] init];
     dataHelper.entityName = @"Person";
     dataHelper.defaultSortAttribute = @"surname";
     
-    // Check for existing data
+    // 檢查是否已經有資料
     BOOL firstRun = !dataHelper.hasStore;
     
-    // Setup core data
+    // 設定
     [dataHelper setupCoreData];
     if (firstRun)
         [self initializeData];
