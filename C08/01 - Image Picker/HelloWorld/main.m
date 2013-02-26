@@ -41,7 +41,7 @@
 	}
 }
 
-// Popover was dismissed
+// 懸浮元件被解除了
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     popover = nil;
@@ -57,7 +57,7 @@
     {
         ALAssetRepresentation *assetRepresentation = [asset defaultRepresentation];
         CGImageRef cgImage = [assetRepresentation CGImageWithOptions:nil];
-        CFRetain(cgImage); // Thanks Oliver Drobnik
+        CFRetain(cgImage); // 感謝Oliver Drobnik
         if (image) *image = [UIImage imageWithCGImage:cgImage];
         CFRelease(cgImage);
     };
@@ -70,13 +70,13 @@
     [library assetForURL:assetURL resultBlock:resultsBlock failureBlock:failure];
 }
 
-// Update image and for iPhone, dismiss the controller
+// 更新圖像，若是iPhone就解除控制器
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    // Use the edited image if available
+    // 若有編輯後的圖像，就用它
     UIImage __autoreleasing *image = info[UIImagePickerControllerEditedImage];
     
-    // If not, grab the original image
+    // 若無，抓出原始圖像
     if (!image) image = info[UIImagePickerControllerOriginalImage];
     
     NSURL *assetURL = info[UIImagePickerControllerReferenceURL];
@@ -97,7 +97,7 @@
         [self performDismiss];
 }
 
-// Dismiss picker
+// 解除圖像挑選器
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
     [self performDismiss];
@@ -107,7 +107,7 @@
 {
     if (popover) return;
     
-    // Create and initialize the picker
+    // 建立並初始化圖像挑選器
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
     picker.allowsEditing = editSwitch.isOn;
@@ -129,7 +129,7 @@
     
     self.navigationItem.rightBarButtonItem = BARBUTTON(@"Pick Image", @selector(pickImage));
     
-    // Setup title view with Edits: ON/OFF
+    // 標題視圖以開關設定可否編輯的ON/OFF狀態
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
     RESIZABLE(toolbar);
     self.navigationItem.titleView = toolbar;    

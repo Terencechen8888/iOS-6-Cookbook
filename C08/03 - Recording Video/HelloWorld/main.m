@@ -45,11 +45,11 @@
 
 - (BOOL) videoRecordingAvailable
 {
-    // The source type must be available
+    // 圖像來源種類必須為可用狀態
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         return NO;
     
-    // And the media type must include the movie type
+    // 媒體種類必須包含影片類型
     NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     
     return  [mediaTypes containsObject:(NSString *)kUTTypeMovie];
@@ -66,10 +66,10 @@
 
 - (void) saveVideo: (NSURL *) mediaURL
 {
-    // check if video is compatible with album
+    // 檢查影片使否與相簿相容
 	BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(mediaURL.path);
 	
-	// save
+	// 儲存
 	if (compatible)
 		UISaveVideoAtPathToSavedPhotosAlbum(mediaURL.path, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
     
@@ -79,13 +79,13 @@
 {
     [self performDismiss];
     
-	// recover video URL and save data
+	// 取得影片URL、儲存資料
 	NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
     [self saveVideo:mediaURL];
 }
 
 
-// Dismiss picker
+// 解除圖像挑選器
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
     [self performDismiss];
@@ -96,7 +96,7 @@
     if (popover) return;
     self.title = nil;
 
-    // Create and initialize the picker
+    // 建立並初始化圖像挑選器控制器
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType =  UIImagePickerControllerSourceTypeCamera;
 	picker.videoQuality = UIImagePickerControllerQualityTypeMedium;
