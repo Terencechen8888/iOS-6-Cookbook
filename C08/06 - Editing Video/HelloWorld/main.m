@@ -31,7 +31,7 @@
 
 - (void) saveVideo
 {
-    // check if video is compatible with album and save
+    // 檢查影片是否相容於相簿，並儲存
 	BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(mediaURL.path);
 	if (compatible)
     {
@@ -116,13 +116,13 @@
 }
 
 
-// Dismiss picker
+// 解除圖像控制器
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
     [self performDismiss];
 }
 
-// Popover was dismissed
+// 懸浮元件被解除了
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     popover = nil;
@@ -132,7 +132,7 @@
 {
     if (popover) return;
     
-    // Create and initialize the picker
+    // 建立並初始化圖像挑選器控制器
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
 	picker.mediaTypes = @[(NSString *)kUTTypeMovie];

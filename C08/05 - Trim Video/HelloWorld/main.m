@@ -43,7 +43,7 @@
 	}
 }
 
-// Popover was dismissed
+// 懸浮元件被解除了
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     popover = nil;
@@ -51,11 +51,11 @@
 
 - (BOOL) videoRecordingAvailable
 {
-    // The source type must be available
+    // 圖像來源種類必須為可用狀態
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         return NO;
     
-    // And the media type must include the movie type
+    // 而且，媒體種類必須包含影片類型
     NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     
     return  [mediaTypes containsObject:(NSString *)kUTTypeMovie];
@@ -63,7 +63,7 @@
 
 - (void) playMovie
 {
-    // play
+    // 播放
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:playbackURL];
     player.moviePlayer.allowsAirPlay = YES;
     player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
@@ -90,13 +90,13 @@
         return;
     }
     
-    // Make video available to play
+    // 允許播放影片
     self.navigationItem.leftBarButtonItem = SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(playMovie));
 }
 
 - (void) saveVideo: (NSURL *) mediaURL
 {
-    // check if video is compatible with album and save
+    // 檢查影片是否相容於相簿，並儲存
 	BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(mediaURL.path);
 	if (compatible)
     {
@@ -108,11 +108,11 @@
 
 - (void) trimVideo: (NSDictionary *) info
 {
-	// recover video URL
+	// 取得指向影片的URL
 	NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:mediaURL options:nil];
 
-    // Create a trimmed version of the path
+    // 建立儲存修剪版本的路徑
     NSString *urlPath = mediaURL.path;
     NSString *extension = urlPath.pathExtension;
     NSString *base = [urlPath stringByDeletingPathExtension];
@@ -120,20 +120,20 @@
     NSLog(@"newPath: %@", newPath);
     NSURL *fileURL = [NSURL fileURLWithPath:newPath];
 
-    // Set the trim range
+    // 設定修剪範圍
     CGFloat editingStart = [info[@"_UIImagePickerControllerVideoEditingStart"] floatValue];
     CGFloat editingEnd = [info[@"_UIImagePickerControllerVideoEditingEnd"] floatValue];
     CMTime startTime = CMTimeMakeWithSeconds(editingStart, 1);
     CMTime endTime = CMTimeMakeWithSeconds(editingEnd, 1);
     CMTimeRange exportRange = CMTimeRangeFromTimeToTime(startTime, endTime);
     
-    // Establish the export session
+    // 建立AVAssetExportSession進行匯出動作
     AVAssetExportSession *session = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
     session.outputURL = fileURL;
     session.outputFileType = AVFileTypeQuickTimeMovie;
     session.timeRange = exportRange;
     
-    // Perform the export
+    // 開始匯出
     [session exportAsynchronouslyWithCompletionHandler:^()
     {
         if (session.status == AVAssetExportSessionStatusCompleted)
@@ -152,7 +152,7 @@
 }
 
 
-// Dismiss picker
+// 解除圖像控制器
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
     [self performDismiss];
@@ -162,7 +162,7 @@
 {
     if (popover) return;
     
-    // Create and initialize the picker
+    // 建立並初始化圖像挑選器控制器
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType =  UIImagePickerControllerSourceTypeCamera;
 	picker.videoQuality = UIImagePickerControllerQualityTypeMedium;

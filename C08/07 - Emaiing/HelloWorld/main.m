@@ -29,7 +29,7 @@
 
 - (void) presentViewController:(UIViewController *)viewControllerToPresent
 {
-    // Modal works best
+    // 最好以模態形式呈現
     [self presentViewController:viewControllerToPresent animated:YES completion:nil];
 }
 
@@ -42,7 +42,7 @@
     {
         ALAssetRepresentation *assetRepresentation = [asset defaultRepresentation];
         CGImageRef cgImage = [assetRepresentation CGImageWithOptions:nil];
-        CFRetain(cgImage); // Thanks Oliver Drobnik
+        CFRetain(cgImage); // 感謝Oliver Drobnik
         if (image) *image = [UIImage imageWithCGImage:cgImage];
         CFRelease(cgImage);
     };
@@ -58,12 +58,12 @@
 #pragma mark - Email
 - (NSString *) mimeTypeForExtension: (NSString *) ext
 {
-    // Request the UTI via the file extension
+    // 根據副檔名查出UTI
     CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef) ext, NULL);
     if (!UTI) return nil;
     
-    // Request the MIME file type via the UTI,
-    // may return nil for unrecognized MIME types
+    // 透過UTI查出檔案的MIME類型
+    // 若是無法辨認的MIME類型，會回傳nil
     
     NSString *mimeType = (__bridge_transfer NSString *) UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType);
     
@@ -100,7 +100,7 @@
     UIImage *image = imageView.image;
     if (!image) return;
     
-    // Customize the e-mail
+    // 建立並設定郵件
     MFMailComposeViewController *mcvc = [[MFMailComposeViewController alloc] init];
     mcvc.mailComposeDelegate = self;
     [mcvc setSubject:@"Here’s a great photo!"];
@@ -111,17 +111,17 @@
     [mcvc addAttachmentData:UIImageJPEGRepresentation(image, 1.0f)
                    mimeType:@"image/jpeg" fileName:@"pickerimage.jpg"];
     
-    // Present the e-mail composition controller
+    // 顯示郵件撰寫視圖控制器
     [self presentViewController:mcvc];
 }
 
 #pragma mark - Image Picker
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    // Use the edited image if available
+    // 若有編輯後的圖像，使用它
     UIImage __autoreleasing *image = info[UIImagePickerControllerEditedImage];
     
-    // If not, grab the original image
+    // 若無，取得原始版本的圖像
     if (!image) image = info[UIImagePickerControllerOriginalImage];
     
     NSURL *assetURL = info[UIImagePickerControllerReferenceURL];
@@ -145,13 +145,13 @@
     [self performDismiss];
 }
 
-// Dismiss picker
+// 解除圖像控制器
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self performDismiss];
 }
 
-// Popover was dismissed
+// 懸浮元件被解除了
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     popover = nil;
@@ -159,7 +159,7 @@
 
 - (void) snapImage
 {
-    // Create and initialize the picker
+    // 建立並初始化圖像挑選器
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType =  UIImagePickerControllerSourceTypeCamera;
     picker.allowsEditing = editSwitch.isOn;
@@ -184,7 +184,7 @@
     {
         self.navigationItem.rightBarButtonItem = SYSBARBUTTON(UIBarButtonSystemItemCamera, @selector(snapImage));
 
-        // Setup title view with Edits: ON/OFF
+        // 在標題視圖裡放入開關，切換編輯狀態
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
         RESIZABLE(toolbar);
         self.navigationItem.titleView = toolbar;

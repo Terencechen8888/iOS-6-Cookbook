@@ -41,7 +41,7 @@
 	}
 }
 
-// Popover was dismissed
+// 懸浮元件被解除了
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     popover = nil;
@@ -49,11 +49,11 @@
 
 - (BOOL) videoRecordingAvailable
 {
-    // The source type must be available
+    // 圖像來源種類必須為可用狀態
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         return NO;
     
-    // And the media type must include the movie type
+    // 而且，媒體種類必須包含影片類型
     NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     
     return  [mediaTypes containsObject:(NSString *)kUTTypeMovie];
@@ -61,7 +61,7 @@
 
 - (void) playMovie
 {
-    // play
+    // 播放
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:mediaURL];
     player.moviePlayer.allowsAirPlay = YES;
     player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
@@ -85,12 +85,12 @@
 {
     [self performDismiss];
     
-	// recover video URL
+	// 取得影片URL
 	mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
     self.navigationItem.rightBarButtonItem = SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(playMovie));
 }
 
-// Dismiss picker
+// 解除圖像挑選器
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
     [self performDismiss];
@@ -100,7 +100,7 @@
 {
     if (popover) return;
     
-    // Create and initialize the picker
+    // 建立並初始化圖像挑選器控制器
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType =  UIImagePickerControllerSourceTypeCamera;
 	picker.videoQuality = UIImagePickerControllerQualityTypeMedium;

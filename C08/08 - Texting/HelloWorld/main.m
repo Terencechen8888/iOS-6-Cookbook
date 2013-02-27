@@ -21,7 +21,7 @@
 
 - (void) presentViewController:(UIViewController *)viewControllerToPresent
 {
-    // Modal is best
+    // 最好以模態形式呈現
     [self presentViewController:viewControllerToPresent animated:YES completion:nil];
 }
 

@@ -49,7 +49,7 @@
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         return NO;
     
-    // 媒體種類必須包含影片類型
+    // 而且，媒體種類必須包含影片類型
     NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     
     return  [mediaTypes containsObject:(NSString *)kUTTypeMovie];
