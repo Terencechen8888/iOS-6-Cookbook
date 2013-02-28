@@ -60,20 +60,20 @@
 
 - (void) dumpToPDFFile
 {
-    // Create a string
+    // 建立字串
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"Hello World!"];
     NSRange range = NSMakeRange(0, string.length);
     
-    // Make the string center aligned and big
+    // 讓字串置中、設定大字型
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.alignment = NSTextAlignmentCenter;
     [string addAttribute:NSParagraphStyleAttributeName value:style range:range];
     [string addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial-BoldMT" size:36.0f] range:range];
 
-    // Load an image
+    // 載入圖檔
     UIImage *image = [UIImage imageNamed:@"Default.png"];
 
-    // Create PDF
+    // 建立PDF
     CGRect theBounds = CGRectMake(0.0f, 0.0f, 480.0f, 600.0f);
     UIGraphicsBeginPDFContextToFile(FILE_PATH, theBounds, nil);
     UIGraphicsBeginPDFPage();

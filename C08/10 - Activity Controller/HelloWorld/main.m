@@ -124,7 +124,7 @@
 	}
 }
 
-// Popover was dismissed
+// 懸浮元件被解除了
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
     popover = nil;
@@ -145,10 +145,10 @@
 
 - (void) action
 {    
-    // Self adopts the UIActivityItemSource Protocol
+    // self實作了UIActivityItemSource協定
     UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[self] applicationActivities:nil];
     
-    // Or supply the item(s) directly
+    // 或是直接提供項目
     // UIImage *secondImage = [UIImage imageNamed:@"Default.png"];
     // UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[imageView.image, secondImage] applicationActivities:nil];
     
