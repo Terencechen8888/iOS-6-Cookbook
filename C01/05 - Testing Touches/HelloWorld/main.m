@@ -131,6 +131,10 @@
         [self.view addSubview:dragger];
     }	
 }
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
 @end
 
 #pragma mark -
