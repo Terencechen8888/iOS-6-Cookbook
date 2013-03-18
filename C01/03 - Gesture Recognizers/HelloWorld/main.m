@@ -33,6 +33,10 @@
 {
     return YES;
 }
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
 @end
 
 #pragma mark -
