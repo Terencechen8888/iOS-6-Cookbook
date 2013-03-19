@@ -138,6 +138,11 @@
     for (UIViewController *controller in childControllers)
         controller.view.frame = backsplash.bounds;
 }
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
+@end
 
 #pragma mark -
 

@@ -27,7 +27,7 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    // Peek at subview locations
+    // 查看子視圖的位置
     /*
     for (UIView *subview in self.view.subviews)
         NSLog(@"View #%d (%@): location: %@", [self.view.subviews indexOfObject:subview], subview.debugName, NSStringFromCGRect(subview.frame));
@@ -36,7 +36,7 @@
 
 - (void) action: (id) sender
 {
-    // Sadly, you cannot animate constraint changes
+    // 說來遺憾，我們不能讓約束規則的變化產生動畫效果
     /* UIView *view1 = self.view.subviews[0];
     
     [UIView animateWithDuration:1.0f animations:^(){
@@ -53,7 +53,7 @@ enum {foo, bar, blort};
     self.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.85f];
 	self.navigationItem.rightBarButtonItem = BARBUTTON(@"Action", @selector(action:));
     
-    // Create views to play with
+    // 建立視圖
     
     UILabel *view1 = [self createLabel:@"View 1"];
     view1.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.25f];
@@ -64,23 +64,23 @@ enum {foo, bar, blort};
     UILabel *view4 = [self createLabel:@"View 4"];
     view4.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.25f];
     
-    // Hide any views not in use
+    // 隱藏非使用中的視圖
     // view1.alpha = 0.0f;
     // view2.alpha = 0.0f;
     // view3.alpha = 0.0f;
     view4.alpha = 0.0f;
     
-    // Add views to scene
+    // 加入視圖到畫面裡
     [self.view addSubviewAndConstrainToBounds:view1];
     [self.view addSubviewAndConstrainToBounds:view2];
     [self.view addSubviewAndConstrainToBounds:view3];
     [self.view addSubviewAndConstrainToBounds:view4];
     
-    // Vertically align
+    // 垂直對齊
     /* for (UIView *subview in self.view.subviews)
         [subview setAlignmentInSuperview:NSLayoutFormatAlignAllTop]; */
     
-    // Roll your own rules and view the generated constraints
+    // 加入你自己的規則，看看產生出來的約束規則
     // [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view1]-[view2]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view1, view2)]];
     ALIGN_VIEW_LEFT(self.view, view1);
     ALIGN_VIEW_TOP(self.view, view1);
