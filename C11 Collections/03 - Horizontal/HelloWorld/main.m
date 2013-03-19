@@ -109,6 +109,10 @@
     CONSTRAIN(self.view, cv, @"H:|[cv(>=0)]|");
     CONSTRAIN(self.view, cv, @"V:|-[cv(==200)]");
 }
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
 @end
 
 #pragma mark -

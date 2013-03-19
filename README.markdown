@@ -5,6 +5,8 @@ http://www.amazon.com/Core-iOS-Developers-Cookbook-Library/dp/0321884213/ref=sr_
 
 中文翻譯本的網址：
 
+我的測試環境為Xcode 4.5.2（Base SDK 6.0，Development Target 6.0）、Xcode 4.6（Base SDK 6.1，Development Target 6.0）。
+
 <hr />
 
 <h3>iOS Developer's Cookbook</h3>
