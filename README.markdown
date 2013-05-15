@@ -3,7 +3,8 @@
 原文書的Amazon網址：
 http://www.amazon.com/Core-iOS-Developers-Cookbook-Library/dp/0321884213/ref=sr_1_1?s=books&ie=UTF8&qid=1357658295&sr=1-1
 
-中文翻譯本的網址：
+中文翻譯本的網址：iOS 6 SDK 核心範例精研，悅知出版
+http://www.delightpress.com.tw/book.aspx?book_id=SKTP00043
 
 我的測試環境為Xcode 4.5.2（Base SDK 6.0，Development Target 6.0）、Xcode 4.6（Base SDK 6.1，Development Target 6.0）。
 
